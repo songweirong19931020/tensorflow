@@ -1,0 +1,16 @@
+,s_time,path,job,day,h_m
+0,00 01 14 * *,/opt/earth/data-integration/start_kjb.sh,DRGS_ZXXXCC/DRGS_ZXXXCC.kjb,14,01:00
+1,20 00 * * *,/opt/earth/data-integration/start_kjb.sh,inp_daily_workload/inp_daily_1.kjb,*,00:20
+2,30 0 * * *,/opt/earth/data-integration/start_kjb.sh,prepay_records/P_PATIENT_PREPAY_RECORDS.kjb,*,0:30
+3,00 02 06 * *,/opt/earth/data-integration/start_kjb.sh,bi/EXECUTE_PROC_M/P_EXECUTE_PROC_M_1_D.kjb,06,02:00
+4,00 02 11 * *,/opt/earth/data-integration/start_kjb.sh,bi/EXECUTE_PROC_M/P_EXECUTE_PROC_M_11_D.kjb,11,02:00
+5,00 02 15 * *,/opt/earth/data-integration/start_kjb.sh,bi/EXECUTE_PROC_M/P_EXECUTE_PROC_M_15_D.kjb,15,02:00
+6,00 01 09 * *,/opt/earth/data-integration/start_kjb.sh,bi/DW_VIEW_PHAM_COMM_M.kjb,09,01:00
+7,00 01 09 * *,/opt/earth/data-integration/start_kjb.sh,bi/DW_VIEW_ADVERSE_EVENT_M.kjb,09,01:00
+8,00 01 09 * *,/opt/earth/data-integration/start_kjb.sh,bi/DW_VIEW_PRESSURE_M.kjb,09,01:00
+9,00 01 09 * *,/opt/earth/data-integration/start_kjb.sh,bi/PHAM_AMONT_DIFF/DIM_PHAM_DIFF_INFO.kjb,09,01:00
+10,00 01 09 * *,/opt/earth/data-integration/start_kjb.sh,bi/VIEW_GOODS_BASIC_INFO.kjb,09,01:00
+11,00 01 11 * *,/opt/earth/data-integration/start_kjb.sh,bi/MEDICAL/MEDICAL_RECORD.kjb,11,01:00
+12,00 06 15 * *,/opt/earth/data-integration/start_kjb.sh,bi/KPI_MASTER_M/KPI_MASTER_M.kjb,15,06:00
+13,30 06 15 * *,/opt/earth/data-integration/start_kjb.sh,bi/LEVEL_MASTER_M/LEVEL_MASTER_M.kjb,15,06:30
+14,*/2 * * * *,/opt/earth/data-integration/start_kjb.sh,bi/DASHBORD/DASHBORD_VALUE_MI.kjb,*,*:*/2

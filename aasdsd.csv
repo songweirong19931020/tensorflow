@@ -1,0 +1,3969 @@
+,name
+0,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010201';
+1,insert into his_bi.level_master_m
+2,select
+3,"t1.month_id,"
+4,"'LV007010201' as level_code ,"
+5,"count(1) as level_value,"
+6,"now() as update_time ,"
+7,"count(1) as self_value  ,"
+8,"null as check_flag  ,"
+9,null as check_comm
+10,from his_bi.dw_outp_patient_info_m t1
+11,where
+12,t1.month_id=c_monthlist.month_id and
+13,"coalesce(t1.is_tj,0)=0"
+14,group by month_id;
+15,---急诊人数
+16,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010202';
+17,insert into his_bi.level_master_m
+18,select
+19,"t1.month_id,"
+20,"'LV007010202' as level_code ,"
+21,"count(1) as level_value,"
+22,"now() as update_time ,"
+23,"count(1) as self_value  ,"
+24,"null as check_flag  ,"
+25,null as check_comm
+26,from his_bi.dw_outp_patient_info_m t1
+27,where
+28,t1.month_id=c_monthlist.month_id and
+29,"coalesce(t1.is_emergency,0)<>0"
+30,group by month_id;
+31,----年住院患者入院人次
+32,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010204';
+33,insert into his_bi.level_master_m
+34,select
+35,"replace(left(stat_date::text,7),'-','') as month_id,"
+36,"'LV007010204' as level_code ,"
+37,"sum(c_num) as level_value,"
+38,"now() as update_time ,"
+39,"sum(c_num) as self_value  ,"
+40,"null as check_flag  ,"
+41,null as check_comm
+42,from his_bi.dw_inp_dept_work_d t1
+43,where
+44,"replace(left(stat_date::text,7),'-','')=c_monthlist.month_id"
+45,"group by replace(left(stat_date::text,7),'-','');"
+46,----年出院人次
+47,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010205';
+48,insert into his_bi.level_master_m
+49,select
+50,"t1.month_id as month_id,"
+51,"'LV007010205' as level_code ,"
+52,"count(1) as level_value,"
+53,"now() as update_time ,"
+54,"count(1) as self_value  ,"
+55,"null as check_flag  ,"
+56,null as check_comm
+57,from his_bi.dw_inp_patient_info_m t1
+58,where
+59,t1.month_id=c_monthlist.month_id
+60,group by t1.month_id;
+61,----年出院患者实际占用总床日
+62,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010206';
+63,insert into his_bi.level_master_m
+64,select
+65,"replace(left(stat_date::text,7),'-','') as month_id,"
+66,"'LV007010206' as level_code ,"
+67,"sum(bed_used) as level_value,"
+68,"now() as update_time ,"
+69,"sum(bed_used) as self_value  ,"
+70,"null as check_flag  ,"
+71,null as check_comm
+72,from his_bi.dw_inp_dept_work_d t1
+73,where
+74,"replace(left(stat_date::text,7),'-','')=c_monthlist.month_id"
+75,"group by replace(left(stat_date::text,7),'-','');"
+76,----年住院手术例数（手术患者人数）
+77,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010207';
+78,insert into his_bi.level_master_m
+79,select
+80,"t1.month_id as month_id,"
+81,"'LV007010207' as level_code ,"
+82,"count(1) as level_value,"
+83,"now() as update_time ,"
+84,"count(1) as self_value  ,"
+85,"null as check_flag  ,"
+86,null as check_comm
+87,from his_bi.dw_inp_patient_info_m t1
+88,where
+89,t1.month_id=c_monthlist.month_id
+90,and t1.is_sshz = '1'
+91,group by t1.month_id;
+92,----年门诊手术例数（手术患者人数）
+93,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010208';
+94,insert into his_bi.level_master_m
+95,select
+96,"t1.month_id as month_id,"
+97,"'LV007010208' as level_code ,"
+98,"count(1) as level_value,"
+99,"now() as update_time ,"
+100,"count(1) as self_value  ,"
+101,"null as check_flag  ,"
+102,null as check_comm
+103,from his_bi.dw_outp_patient_amount_m t1
+104,where
+105,t1.month_id=c_monthlist.month_id
+106,and t1.operation_fees >0
+107,group by t1.month_id;
+108,----年分娩产妇数
+109,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010210';
+110,insert into his_bi.level_master_m
+111,select
+112,"left(t1.st_date,6) as month_id,"
+113,"'LV007010210' as level_code ,"
+114,"count(1) as level_value,"
+115,"now() as update_time ,"
+116,"count(1) as self_value  ,"
+117,"null as check_flag  ,"
+118,null as check_comm
+119,from his_bi.DWD_INP_QUANTITY_D t1
+120,where
+121,"left(t1.st_date,6)=c_monthlist.month_id"
+122,and t1.key = 'D00159'
+123,"group by left(t1.st_date,6);"
+124,----年活产数
+125,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010211';
+126,insert into his_bi.level_master_m
+127,select
+128,"left(t1.st_date,6) as month_id,"
+129,"'LV007010211' as level_code ,"
+130,"count(1) as level_value,"
+131,"now() as update_time ,"
+132,"count(1) as self_value  ,"
+133,"null as check_flag  ,"
+134,null as check_comm
+135,from his_bi.dwd_inp_quantity_d t1
+136,where
+137,"left(t1.st_date,6)=c_monthlist.month_id"
+138,and t1.key = 'D00157'
+139,"and t1.value not in ('2','3')"
+140,"group by left(t1.st_date,6);"
+141,---恶性肿瘤手术术前诊断与术后病理诊断符合例数
+142,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010302';
+143,insert into his_bi.level_master_m
+144,select
+145,"replace(left(t2.cyrq::text,7),'-','')  as month_id,"
+146,"'LV007010302' as level_code ,"
+147,"count(1) as level_value,"
+148,"now() as update_time ,"
+149,"count(1) as self_value  ,"
+150,"null as check_flag  ,"
+151,null as check_comm
+152,from
+153,(select
+154,distinct
+155,"patient_id,"
+156,visit_id
+157,from
+158,his_bi.dwd_inp_medical_d
+159,where
+160,key = 'D00191')t1 inner join his_bi.ods_patient_medical_record t2 on t1.patient_id = t2.bah and  t1.visit_id = t2.zycs
+161,where
+162,"replace(left(t2.cyrq::text,7),'-','')=c_monthlist.month_id"
+163,and t2.sqysh = '1'
+164,"group by replace(left(t2.cyrq::text,7),'-','') ;"
+165,---住院患者死亡人数
+166,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010303';
+167,insert into his_bi.level_master_m
+168,select
+169,"t1.month_id,"
+170,"'LV007010303' as level_code ,"
+171,"count(1) as level_value,"
+172,"now() as update_time ,"
+173,"count(1) as self_value  ,"
+174,"null as check_flag  ,"
+175,null as check_comm
+176,from his_bi.dw_inp_patient_info_m t1
+177,where
+178,t1.month_id=c_monthlist.month_id
+179,and t1.lyfs='5'
+180,group by t1.month_id ;
+181,---住院患者自动出院例数
+182,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010304';
+183,insert into his_bi.level_master_m
+184,select
+185,"t1.month_id,"
+186,"'LV007010304' as level_code ,"
+187,"count(1) as level_value,"
+188,"now() as update_time ,"
+189,"count(1) as self_value  ,"
+190,"null as check_flag  ,"
+191,null as check_comm
+192,from his_bi.dw_inp_patient_info_m t1
+193,where
+194,t1.month_id=c_monthlist.month_id
+195,and t1.lyfs<>'4'
+196,group by t1.month_id ;
+197,---住院手术患者手术人数
+198,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010305';
+199,insert into his_bi.level_master_m
+200,select
+201,"t1.month_id as month_id,"
+202,"'LV007010305' as level_code ,"
+203,"count(1) as level_value,"
+204,"now() as update_time ,"
+205,"count(1) as self_value  ,"
+206,"null as check_flag  ,"
+207,null as check_comm
+208,from his_bi.dw_inp_patient_info_m t1
+209,where
+210,t1.month_id=c_monthlist.month_id
+211,and t1.is_sshz = '1'
+212,group by t1.month_id;
+213,----住院手术患者手术人次数
+214,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010306';
+215,insert into his_bi.level_master_m
+216,select
+217,"to_char(t1.cyrq,'yyyymm') as month_id,"
+218,"'LV007010306' as level_code ,"
+219,"count(1) as level_value,"
+220,"now() as update_time ,"
+221,"count(1) as self_value  ,"
+222,"null as check_flag  ,"
+223,null as check_comm
+224,from his_bi.ods_patient_medical_record t1
+225,inner join his_bi.ods_patient_opertion_info t2 on t1.brxh = t2.brxh
+226,where
+227,"to_char(t1.cyrq,'yyyymm') =c_monthlist.month_id"
+228,"group by to_char(t1.cyrq,'yyyymm') ;"
+229,---住院手术患者死亡例数
+230,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010307';
+231,insert into his_bi.level_master_m
+232,select
+233,"t1.month_id as month_id,"
+234,"'LV007010307' as level_code ,"
+235,"count(1) as level_value,"
+236,"now() as update_time ,"
+237,"count(1) as self_value  ,"
+238,"null as check_flag  ,"
+239,null as check_comm
+240,from his_bi.dw_inp_patient_info_m t1
+241,where
+242,t1.month_id=c_monthlist.month_id
+243,and t1.is_sshz = '1'
+244,and t1.lyfs='5'
+245,group by t1.month_id;
+246,---住院危重患者抢救人数
+247,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010308';
+248,insert into his_bi.level_master_m
+249,select
+250,"t1.month_id as month_id,"
+251,"'LV007010308' as level_code ,"
+252,"count(1) as level_value,"
+253,"now() as update_time ,"
+254,"count(1) as self_value  ,"
+255,"null as check_flag  ,"
+256,null as check_comm
+257,from his_bi.dw_inp_patient_info_m t1
+258,inner join his_bi.ods_patient_medical_record t2 on t1.patient_id = t2.bah and t1.visit_id = t2.zycs
+259,where
+260,t1.month_id=c_monthlist.month_id
+261,and t1.is_wzhz = '1'
+262,"and COALESCE(t2.qjcs,0)<>'0'"
+263,group by t1.month_id;
+264,---住院危重患者抢救人次数
+265,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010309';
+266,insert into his_bi.level_master_m
+267,select
+268,"t1.month_id as month_id,"
+269,"'LV007010309' as level_code ,"
+270,"COALESCE(t2.qjcs,0) as level_value,"
+271,"now() as update_time ,"
+272,"COALESCE(t2.qjcs,0) as self_value  ,"
+273,"null as check_flag  ,"
+274,null as check_comm
+275,from his_bi.dw_inp_patient_info_m t1
+276,inner join his_bi.ods_patient_medical_record t2 on t1.patient_id = t2.bah and t1.visit_id = t2.zycs
+277,where
+278,t1.month_id=c_monthlist.month_id
+279,and t1.is_wzhz = '1'
+280,"and COALESCE(t2.qjcs,0)<>'0';"
+281,---住院危重患者死亡例数
+282,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010310';
+283,insert into his_bi.level_master_m
+284,select
+285,"t1.month_id as month_id,"
+286,"'LV007010310' as level_code ,"
+287,"count(1) as level_value,"
+288,"now() as update_time ,"
+289,"count(1) as self_value  ,"
+290,"null as check_flag  ,"
+291,null as check_comm
+292,from his_bi.dw_inp_patient_info_m t1
+293,where
+294,t1.month_id=c_monthlist.month_id
+295,and t1.is_wzhz = '1'
+296,and t1.lyfs='5'
+297,group by t1.month_id;
+298,---新生儿患者住院死亡率
+299,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010311';
+300,insert into his_bi.level_master_m
+301,select
+302,"left(t1.st_date,6),"
+303,"'LV007010311' as level_code ,"
+304,"cast((count(case when t1.value = '2' or t1.value = '3' then 1 end)*1.00/count(1)) as decimal(10,5))*100 as level_value,"
+305,"now() as update_time ,"
+306,"cast((count(case when t1.value = '2' or t1.value = '3' then 1 end)*1.00/count(1)) as decimal(10,5))*100  as self_value  ,"
+307,"null as check_flag  ,"
+308,null as check_comm
+309,from
+310,his_bi.dwd_inp_quantity_d t1
+311,where
+312,t1.key = 'D00157'
+313,"and left(t1.st_date,6) = c_monthlist.month_id"
+314,"group by left(t1.st_date,6);"
+315,----孕产妇危重抢救例数
+316,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010312';
+317,insert into his_bi.level_master_m
+318,select
+319,"left(t1.st_date,6) as month_id,"
+320,"'LV007010312' as level_code ,"
+321,"sum(COALESCE(t2.qjcs,0)) as level_value,"
+322,"now() as update_time ,"
+323,"sum(COALESCE(t2.qjcs,0)) as self_value  ,"
+324,"null as check_flag  ,"
+325,null as check_comm
+326,from his_bi.DWD_INP_QUANTITY_D t1
+327,inner join his_bi.ods_patient_medical_record t2 on t1.patient_id = t2.bah and t1.visit_id = t2.zycs
+328,where
+329,"left(t1.st_date,6) = c_monthlist.month_id"
+330,and t1.key = 'D00159'
+331,"and coalesce(COALESCE(t2.qjcs,0),0)<>0"
+332,"group by left(t1.st_date,6);"
+333,----孕产妇危重死亡例数
+334,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010313';
+335,insert into his_bi.level_master_m
+336,select
+337,"left(t1.st_date,6) as month_id,"
+338,"'LV007010313' as level_code ,"
+339,"count(1) as level_value,"
+340,"now() as update_time ,"
+341,"count(1) as self_value  ,"
+342,"null as check_flag  ,"
+343,null as check_comm
+344,from his_bi.DWD_INP_QUANTITY_D t1
+345,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+346,where
+347,"left(t1.st_date,6) = c_monthlist.month_id"
+348,and t1.key = 'D00159'
+349,and t2.is_wzhz = '1'
+350,"and coalesce(t2.lyfs::text,'0')='5'"
+351,"group by left(t1.st_date,6);"
+352,---出院患者平均住院日
+353,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010401';
+354,insert into his_bi.level_master_m
+355,select
+356,"t1.month_id as month_id,"
+357,"'LV007010401' as level_code ,"
+358,"sum(t1.in_days)/count(1) as level_value,"
+359,"now() as update_time ,"
+360,"sum(t1.in_days)/count(1) as self_value  ,"
+361,"null as check_flag  ,"
+362,null as check_comm
+363,from his_bi.dw_inp_patient_info_m t1
+364,where
+365,t1.month_id=c_monthlist.month_id
+366,group by t1.month_id;
+367,---床位使用率
+368,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010403';
+369,insert into his_bi.level_master_m
+370,select
+371,"t1.month_id as month_id,"
+372,"'LV007010403' as level_code ,"
+373,"COALESCE(COALESCE(t1.kpi_value,0),0) as level_value,"
+374,"now() as update_time ,"
+375,"COALESCE(COALESCE(t1.kpi_value,0),0) as self_value  ,"
+376,"null as check_flag  ,"
+377,null as check_comm
+378,from his_bi.kpi_master_m t1
+379,where
+380,t1.month_id=c_monthlist.month_id
+381,and t1.kpi_code='JX080';
+382,---产后出血
+383,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010101';
+384,insert into his_bi.level_master_m
+385,select
+386,"left(st_date,6) as month_id,"
+387,"'LV00702010101' as level_code ,"
+388,"count(1) as level_value,"
+389,"now() as update_time ,"
+390,"count(1) as self_value  ,"
+391,"null as check_flag  ,"
+392,null as check_comm
+393,from his_bi.dwd_inp_medical_d
+394,where
+395,key = 'D00105'
+396,"and left(st_date,6) = c_monthlist.month_id"
+397,"group by left(st_date,6);"
+398,---妊娠合并糖尿病
+399,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010201';
+400,insert into his_bi.level_master_m
+401,select
+402,"left(st_date,6) as month_id,"
+403,"'LV00702010201' as level_code ,"
+404,"count(1) as level_value,"
+405,"now() as update_time ,"
+406,"count(1) as self_value  ,"
+407,"null as check_flag  ,"
+408,null as check_comm
+409,from his_bi.dwd_inp_medical_d
+410,where
+411,key = 'D00114'
+412,"and left(st_date,6) = c_monthlist.month_id"
+413,"group by left(st_date,6);"
+414,---盆腔炎性疾病
+415,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010301';
+416,insert into his_bi.level_master_m
+417,select
+418,"left(st_date,6) as month_id,"
+419,"'LV00702010301' as level_code ,"
+420,"count(1) as level_value,"
+421,"now() as update_time ,"
+422,"count(1) as self_value  ,"
+423,"null as check_flag  ,"
+424,null as check_comm
+425,from his_bi.dwd_inp_medical_d
+426,where
+427,key = 'D00116'
+428,"and left(st_date,6) = c_monthlist.month_id"
+429,"group by left(st_date,6);"
+430,---异位妊娠
+431,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010401';
+432,insert into his_bi.level_master_m
+433,select
+434,"left(st_date,6) as month_id,"
+435,"'LV00702010401' as level_code ,"
+436,"count(1) as level_value,"
+437,"now() as update_time ,"
+438,"count(1) as self_value  ,"
+439,"null as check_flag  ,"
+440,null as check_comm
+441,from his_bi.dwd_inp_medical_d
+442,where
+443,key = 'D00113'
+444,"and left(st_date,6) = c_monthlist.month_id"
+445,"group by left(st_date,6);"
+446,---女性生殖器脱垂
+447,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010501';
+448,insert into his_bi.level_master_m
+449,select
+450,"left(st_date,6) as month_id,"
+451,"'LV00702010501' as level_code ,"
+452,"count(1) as level_value,"
+453,"now() as update_time ,"
+454,"count(1) as self_value  ,"
+455,"null as check_flag  ,"
+456,null as check_comm
+457,from his_bi.dwd_inp_medical_d
+458,where
+459,key = 'D00117'
+460,"and left(st_date,6) = c_monthlist.month_id"
+461,"group by left(st_date,6);"
+462,---重度卵巢过度刺激综合征
+463,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010801';
+464,insert into his_bi.level_master_m
+465,select
+466,"left(st_date,6) as month_id,"
+467,"'LV00702010801' as level_code ,"
+468,"count(1) as level_value,"
+469,"now() as update_time ,"
+470,"count(1) as self_value  ,"
+471,"null as check_flag  ,"
+472,null as check_comm
+473,from his_bi.dwd_inp_medical_d
+474,where
+475,key = 'D00121'
+476,"and left(st_date,6) = c_monthlist.month_id"
+477,"group by left(st_date,6);"
+478,---重度子痫前期
+479,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010901';
+480,insert into his_bi.level_master_m
+481,select
+482,"left(st_date,6) as month_id,"
+483,"'LV00702010901' as level_code ,"
+484,"count(1) as level_value,"
+485,"now() as update_time ,"
+486,"count(1) as self_value  ,"
+487,"null as check_flag  ,"
+488,null as check_comm
+489,from his_bi.dwd_inp_medical_d
+490,where
+491,key = 'D00111'
+492,"and left(st_date,6) = c_monthlist.month_id"
+493,"group by left(st_date,6);"
+494,---早产
+495,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011001';
+496,insert into his_bi.level_master_m
+497,select
+498,"left(st_date,6) as month_id,"
+499,"'LV00702011001' as level_code ,"
+500,"count(1) as level_value,"
+501,"now() as update_time ,"
+502,"count(1) as self_value  ,"
+503,"null as check_flag  ,"
+504,null as check_comm
+505,from his_bi.dwd_inp_medical_d
+506,where
+507,key = 'D00106'
+508,"and left(st_date,6) = c_monthlist.month_id"
+509,"group by left(st_date,6);"
+510,---多胎妊娠
+511,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011101';
+512,insert into his_bi.level_master_m
+513,select
+514,"left(st_date,6) as month_id,"
+515,"'LV00702011101' as level_code ,"
+516,"count(1) as level_value,"
+517,"now() as update_time ,"
+518,"count(1) as self_value  ,"
+519,"null as check_flag  ,"
+520,null as check_comm
+521,from his_bi.dwd_inp_medical_d
+522,where
+523,key = 'D00107'
+524,"and left(st_date,6) = c_monthlist.month_id"
+525,"group by left(st_date,6);"
+526,---胎膜早破
+527,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011201';
+528,insert into his_bi.level_master_m
+529,select
+530,"left(st_date,6) as month_id,"
+531,"'LV00702011201' as level_code ,"
+532,"count(1) as level_value,"
+533,"now() as update_time ,"
+534,"count(1) as self_value  ,"
+535,"null as check_flag  ,"
+536,null as check_comm
+537,from his_bi.dwd_inp_medical_d
+538,where
+539,key = 'D00108'
+540,"and left(st_date,6) = c_monthlist.month_id"
+541,"group by left(st_date,6);"
+542,---前置胎盘
+543,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011301';
+544,insert into his_bi.level_master_m
+545,select
+546,"left(st_date,6) as month_id,"
+547,"'LV00702011301' as level_code ,"
+548,"count(1) as level_value,"
+549,"now() as update_time ,"
+550,"count(1) as self_value  ,"
+551,"null as check_flag  ,"
+552,null as check_comm
+553,from his_bi.dwd_inp_medical_d
+554,where
+555,key = 'D00109'
+556,"and left(st_date,6) = c_monthlist.month_id"
+557,"group by left(st_date,6);"
+558,---胎盘早剥
+559,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011401';
+560,insert into his_bi.level_master_m
+561,select
+562,"left(st_date,6) as month_id,"
+563,"'LV00702011401' as level_code ,"
+564,"count(1) as level_value,"
+565,"now() as update_time ,"
+566,"count(1) as self_value  ,"
+567,"null as check_flag  ,"
+568,null as check_comm
+569,from his_bi.dwd_inp_medical_d
+570,where
+571,key = 'D00110'
+572,"and left(st_date,6) = c_monthlist.month_id"
+573,"group by left(st_date,6);"
+574,---新生儿窒息
+575,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011501';
+576,insert into his_bi.level_master_m
+577,select
+578,"left(st_date,6) as month_id,"
+579,"'LV00702011501' as level_code ,"
+580,"count(1) as level_value,"
+581,"now() as update_time ,"
+582,"count(1) as self_value  ,"
+583,"null as check_flag  ,"
+584,null as check_comm
+585,from his_bi.dwd_inp_medical_d
+586,where
+587,key = 'D00127'
+588,"and left(st_date,6) = c_monthlist.month_id"
+589,"group by left(st_date,6);"
+590,---新生儿呼吸窘迫
+591,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011601';
+592,insert into his_bi.level_master_m
+593,select
+594,"left(st_date,6) as month_id,"
+595,"'LV00702011601' as level_code ,"
+596,"count(1) as level_value,"
+597,"now() as update_time ,"
+598,"count(1) as self_value  ,"
+599,"null as check_flag  ,"
+600,null as check_comm
+601,from his_bi.dwd_inp_medical_d
+602,where
+603,key = 'D00128'
+604,"and left(st_date,6) = c_monthlist.month_id"
+605,"group by left(st_date,6);"
+606,---支气管肺炎
+607,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011701';
+608,insert into his_bi.level_master_m
+609,select
+610,"left(st_date,6) as month_id,"
+611,"'LV00702011701' as level_code ,"
+612,"count(1) as level_value,"
+613,"now() as update_time ,"
+614,"count(1) as self_value  ,"
+615,"null as check_flag  ,"
+616,null as check_comm
+617,from his_bi.dwd_inp_medical_d
+618,where
+619,key = 'D00123'
+620,"and left(st_date,6) = c_monthlist.month_id"
+621,"group by left(st_date,6);"
+622,---小儿腹泻病
+623,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011801';
+624,insert into his_bi.level_master_m
+625,select
+626,"left(st_date,6) as month_id,"
+627,"'LV00702011801' as level_code ,"
+628,"count(1) as level_value,"
+629,"now() as update_time ,"
+630,"count(1) as self_value  ,"
+631,"null as check_flag  ,"
+632,null as check_comm
+633,from his_bi.dwd_inp_medical_d
+634,where
+635,key = 'D00124'
+636,"and left(st_date,6) = c_monthlist.month_id"
+637,"group by left(st_date,6);"
+638,---低出生体重儿
+639,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011901';
+640,insert into his_bi.level_master_m
+641,select
+642,"left(st_date,6) as month_id,"
+643,"'LV00702011901' as level_code ,"
+644,"count(1) as level_value,"
+645,"now() as update_time ,"
+646,"count(1) as self_value  ,"
+647,"null as check_flag  ,"
+648,null as check_comm
+649,from his_bi.dwd_inp_medical_d
+650,where
+651,key = 'D00125'
+652,"and left(st_date,6) = c_monthlist.month_id"
+653,"group by left(st_date,6);"
+654,---新生儿高胆红素血症
+655,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007020120';
+656,insert into his_bi.level_master_m
+657,select
+658,"left(st_date,6) as month_id,"
+659,"'LV007020120' as level_code ,"
+660,"count(1) as level_value,"
+661,"now() as update_time ,"
+662,"count(1) as self_value  ,"
+663,"null as check_flag  ,"
+664,null as check_comm
+665,from his_bi.dwd_inp_medical_d
+666,where
+667,key = 'D00126'
+668,"and left(st_date,6) = c_monthlist.month_id"
+669,"group by left(st_date,6);"
+670,---产后出血死亡例数
+671,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010102';
+672,insert into his_bi.level_master_m
+673,select
+674,"left(t1.st_date,6) as month_id,"
+675,"'LV00702010102' as level_code ,"
+676,"count(1) as level_value,"
+677,"now() as update_time ,"
+678,"count(1) as self_value  ,"
+679,"null as check_flag  ,"
+680,null as check_comm
+681,from his_bi.dwd_inp_medical_d t1
+682,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+683,where
+684,key = 'D00105'
+685,"and left(t1.st_date,6) = c_monthlist.month_id"
+686,and t2.lyfs = '5'
+687,"group by left(t1.st_date,6);"
+688,---妊娠合并糖尿病死亡例数
+689,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010202';
+690,insert into his_bi.level_master_m
+691,select
+692,"left(t1.st_date,6) as month_id,"
+693,"'LV00702010202' as level_code ,"
+694,"count(1) as level_value,"
+695,"now() as update_time ,"
+696,"count(1) as self_value  ,"
+697,"null as check_flag  ,"
+698,null as check_comm
+699,from his_bi.dwd_inp_medical_d t1
+700,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+701,where
+702,key = 'D00114'
+703,"and left(t1.st_date,6) = c_monthlist.month_id"
+704,and t2.lyfs = '5'
+705,"group by left(t1.st_date,6);"
+706,---盆腔炎性疾病死亡例数
+707,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010302';
+708,insert into his_bi.level_master_m
+709,select
+710,"left(t1.st_date,6) as month_id,"
+711,"'LV00702010302' as level_code ,"
+712,"count(1) as level_value,"
+713,"now() as update_time ,"
+714,"count(1) as self_value  ,"
+715,"null as check_flag  ,"
+716,null as check_comm
+717,from his_bi.dwd_inp_medical_d t1
+718,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+719,where
+720,key = 'D00116'
+721,"and left(t1.st_date,6) = c_monthlist.month_id"
+722,and t2.lyfs = '5'
+723,"group by left(t1.st_date,6);"
+724,---异位妊娠死亡例数
+725,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010402';
+726,insert into his_bi.level_master_m
+727,select
+728,"left(t1.st_date,6) as month_id,"
+729,"'LV00702010402' as level_code ,"
+730,"count(1) as level_value,"
+731,"now() as update_time ,"
+732,"count(1) as self_value  ,"
+733,"null as check_flag  ,"
+734,null as check_comm
+735,from his_bi.dwd_inp_medical_d t1
+736,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+737,where
+738,key = 'D00113'
+739,"and left(t1.st_date,6) = c_monthlist.month_id"
+740,and t2.lyfs = '5'
+741,"group by left(t1.st_date,6);"
+742,---女性生殖器脱垂死亡例数
+743,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010502';
+744,insert into his_bi.level_master_m
+745,select
+746,"left(t1.st_date,6) as month_id,"
+747,"'LV00702010502' as level_code ,"
+748,"count(1) as level_value,"
+749,"now() as update_time ,"
+750,"count(1) as self_value  ,"
+751,"null as check_flag  ,"
+752,null as check_comm
+753,from his_bi.dwd_inp_medical_d t1
+754,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+755,where
+756,key = 'D00117'
+757,"and left(t1.st_date,6) = c_monthlist.month_id"
+758,and t2.lyfs = '5'
+759,"group by left(t1.st_date,6);"
+760,---重度卵巢过度刺激综合征死亡例数
+761,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010802';
+762,insert into his_bi.level_master_m
+763,select
+764,"left(t1.st_date,6) as month_id,"
+765,"'LV00702010802' as level_code ,"
+766,"count(1) as level_value,"
+767,"now() as update_time ,"
+768,"count(1) as self_value  ,"
+769,"null as check_flag  ,"
+770,null as check_comm
+771,from his_bi.dwd_inp_medical_d t1
+772,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+773,where
+774,key = 'D00121'
+775,"and left(t1.st_date,6) = c_monthlist.month_id"
+776,and t2.lyfs = '5'
+777,"group by left(t1.st_date,6);"
+778,---重度子痫前期死亡例数
+779,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010902';
+780,insert into his_bi.level_master_m
+781,select
+782,"left(t1.st_date,6) as month_id,"
+783,"'LV00702010902' as level_code ,"
+784,"count(1) as level_value,"
+785,"now() as update_time ,"
+786,"count(1) as self_value  ,"
+787,"null as check_flag  ,"
+788,null as check_comm
+789,from his_bi.dwd_inp_medical_d t1
+790,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+791,where
+792,key = 'D00111'
+793,"and left(t1.st_date,6) = c_monthlist.month_id"
+794,and t2.lyfs = '5'
+795,"group by left(t1.st_date,6);"
+796,---早产死亡例数
+797,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011002';
+798,insert into his_bi.level_master_m
+799,select
+800,"left(t1.st_date,6) as month_id,"
+801,"'LV00702011002' as level_code ,"
+802,"count(1) as level_value,"
+803,"now() as update_time ,"
+804,"count(1) as self_value  ,"
+805,"null as check_flag  ,"
+806,null as check_comm
+807,from his_bi.dwd_inp_medical_d t1
+808,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+809,where
+810,key = 'D00106'
+811,"and left(t1.st_date,6) = c_monthlist.month_id"
+812,and t2.lyfs = '5'
+813,"group by left(t1.st_date,6);"
+814,---多胎妊娠死亡例数
+815,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011102';
+816,insert into his_bi.level_master_m
+817,select
+818,"left(t1.st_date,6) as month_id,"
+819,"'LV00702011102' as level_code ,"
+820,"count(1) as level_value,"
+821,"now() as update_time ,"
+822,"count(1) as self_value  ,"
+823,"null as check_flag  ,"
+824,null as check_comm
+825,from his_bi.dwd_inp_medical_d t1
+826,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+827,where
+828,key = 'D00107'
+829,"and left(t1.st_date,6) = c_monthlist.month_id"
+830,and t2.lyfs = '5'
+831,"group by left(t1.st_date,6);"
+832,---胎膜早破死亡例数
+833,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011202';
+834,insert into his_bi.level_master_m
+835,select
+836,"left(t1.st_date,6) as month_id,"
+837,"'LV00702011202' as level_code ,"
+838,"count(1) as level_value,"
+839,"now() as update_time ,"
+840,"count(1) as self_value  ,"
+841,"null as check_flag  ,"
+842,null as check_comm
+843,from his_bi.dwd_inp_medical_d t1
+844,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+845,where
+846,key = 'D00108'
+847,"and left(t1.st_date,6) = c_monthlist.month_id"
+848,and t2.lyfs = '5'
+849,"group by left(t1.st_date,6);"
+850,---前置胎盘死亡例数
+851,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011302';
+852,insert into his_bi.level_master_m
+853,select
+854,"left(t1.st_date,6) as month_id,"
+855,"'LV00702011302' as level_code ,"
+856,"count(1) as level_value,"
+857,"now() as update_time ,"
+858,"count(1) as self_value  ,"
+859,"null as check_flag  ,"
+860,null as check_comm
+861,from his_bi.dwd_inp_medical_d t1
+862,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+863,where
+864,key = 'D00109'
+865,"and left(t1.st_date,6) = c_monthlist.month_id"
+866,and t2.lyfs = '5'
+867,"group by left(t1.st_date,6);"
+868,---胎盘早剥死亡例数
+869,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011402';
+870,insert into his_bi.level_master_m
+871,select
+872,"left(t1.st_date,6) as month_id,"
+873,"'LV00702011402' as level_code ,"
+874,"count(1) as level_value,"
+875,"now() as update_time ,"
+876,"count(1) as self_value  ,"
+877,"null as check_flag  ,"
+878,null as check_comm
+879,from his_bi.dwd_inp_medical_d t1
+880,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+881,where
+882,key = 'D00110'
+883,"and left(t1.st_date,6) = c_monthlist.month_id"
+884,and t2.lyfs = '5'
+885,"group by left(t1.st_date,6);"
+886,---新生儿窒息死亡例数
+887,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011502';
+888,insert into his_bi.level_master_m
+889,select
+890,"left(t1.st_date,6) as month_id,"
+891,"'LV00702011502' as level_code ,"
+892,"count(1) as level_value,"
+893,"now() as update_time ,"
+894,"count(1) as self_value  ,"
+895,"null as check_flag  ,"
+896,null as check_comm
+897,from his_bi.dwd_inp_medical_d t1
+898,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+899,where
+900,key = 'D00127'
+901,"and left(t1.st_date,6) = c_monthlist.month_id"
+902,and t2.lyfs = '5'
+903,"group by left(t1.st_date,6);"
+904,---新生儿呼吸窘迫死亡例数
+905,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011602';
+906,insert into his_bi.level_master_m
+907,select
+908,"left(t1.st_date,6) as month_id,"
+909,"'LV00702011602' as level_code ,"
+910,"count(1) as level_value,"
+911,"now() as update_time ,"
+912,"count(1) as self_value  ,"
+913,"null as check_flag  ,"
+914,null as check_comm
+915,from his_bi.dwd_inp_medical_d t1
+916,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+917,where
+918,key = 'D00128'
+919,"and left(t1.st_date,6) = c_monthlist.month_id"
+920,and t2.lyfs = '5'
+921,"group by left(t1.st_date,6);"
+922,---支气管肺炎死亡例数
+923,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011702';
+924,insert into his_bi.level_master_m
+925,select
+926,"left(t1.st_date,6) as month_id,"
+927,"'LV00702011702' as level_code ,"
+928,"count(1) as level_value,"
+929,"now() as update_time ,"
+930,"count(1) as self_value  ,"
+931,"null as check_flag  ,"
+932,null as check_comm
+933,from his_bi.dwd_inp_medical_d t1
+934,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+935,where
+936,key = 'D00123'
+937,"and left(t1.st_date,6) = c_monthlist.month_id"
+938,and t2.lyfs = '5'
+939,"group by left(t1.st_date,6);"
+940,---小儿腹泻病死亡例数
+941,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011802';
+942,insert into his_bi.level_master_m
+943,select
+944,"left(t1.st_date,6) as month_id,"
+945,"'LV00702011802' as level_code ,"
+946,"count(1) as level_value,"
+947,"now() as update_time ,"
+948,"count(1) as self_value  ,"
+949,"null as check_flag  ,"
+950,null as check_comm
+951,from his_bi.dwd_inp_medical_d t1
+952,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+953,where
+954,key = 'D00124'
+955,"and left(t1.st_date,6) = c_monthlist.month_id"
+956,and t2.lyfs = '5'
+957,"group by left(t1.st_date,6);"
+958,---低出生体重儿死亡例数
+959,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011902';
+960,insert into his_bi.level_master_m
+961,select
+962,"left(t1.st_date,6) as month_id,"
+963,"'LV00702011902' as level_code ,"
+964,"count(1) as level_value,"
+965,"now() as update_time ,"
+966,"count(1) as self_value  ,"
+967,"null as check_flag  ,"
+968,null as check_comm
+969,from his_bi.dwd_inp_medical_d t1
+970,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+971,where
+972,key = 'D00125'
+973,"and left(t1.st_date,6) = c_monthlist.month_id"
+974,and t2.lyfs = '5'
+975,"group by left(t1.st_date,6);"
+976,---新生儿高胆红素血症死亡例数
+977,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702012022';
+978,insert into his_bi.level_master_m
+979,select
+980,"left(t1.st_date,6) as month_id,"
+981,"'LV00702012022' as level_code ,"
+982,"count(1) as level_value,"
+983,"now() as update_time ,"
+984,"count(1) as self_value  ,"
+985,"null as check_flag  ,"
+986,null as check_comm
+987,from his_bi.dwd_inp_medical_d t1
+988,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+989,where
+990,key = 'D00126'
+991,"and left(t1.st_date,6) = c_monthlist.month_id"
+992,and t2.lyfs = '5'
+993,"group by left(t1.st_date,6);"
+994,---产后出血平均住院日
+995,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010103';
+996,insert into his_bi.level_master_m
+997,select
+998,"left(t1.st_date,6) as month_id,"
+999,"'LV00702010103' as level_code ,"
+1000,"sum(t2.in_days)/count(1) as level_value,"
+1001,"now() as update_time ,"
+1002,"sum(t2.in_days)/count(1) as self_value  ,"
+1003,"null as check_flag  ,"
+1004,null as check_comm
+1005,from his_bi.dwd_inp_medical_d t1
+1006,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1007,where
+1008,key = 'D00105'
+1009,"and left(t1.st_date,6) = c_monthlist.month_id"
+1010,"group by left(t1.st_date,6);"
+1011,---妊娠合并糖尿病平均住院日
+1012,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010203';
+1013,insert into his_bi.level_master_m
+1014,select
+1015,"left(t1.st_date,6) as month_id,"
+1016,"'LV00702010203' as level_code ,"
+1017,"sum(t2.in_days)/count(1) as level_value,"
+1018,"now() as update_time ,"
+1019,"sum(t2.in_days)/count(1) as self_value  ,"
+1020,"null as check_flag  ,"
+1021,null as check_comm
+1022,from his_bi.dwd_inp_medical_d t1
+1023,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1024,where
+1025,key = 'D00114'
+1026,"and left(t1.st_date,6) = c_monthlist.month_id"
+1027,"group by left(t1.st_date,6);"
+1028,---盆腔炎性疾病平均住院日
+1029,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010303';
+1030,insert into his_bi.level_master_m
+1031,select
+1032,"left(t1.st_date,6) as month_id,"
+1033,"'LV00702010303' as level_code ,"
+1034,"sum(t2.in_days)/count(1) as level_value,"
+1035,"now() as update_time ,"
+1036,"sum(t2.in_days)/count(1) as self_value  ,"
+1037,"null as check_flag  ,"
+1038,null as check_comm
+1039,from his_bi.dwd_inp_medical_d t1
+1040,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1041,where
+1042,key = 'D00116'
+1043,"and left(t1.st_date,6) = c_monthlist.month_id"
+1044,"group by left(t1.st_date,6);"
+1045,---异位妊娠平均住院日
+1046,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010403';
+1047,insert into his_bi.level_master_m
+1048,select
+1049,"left(t1.st_date,6) as month_id,"
+1050,"'LV00702010403' as level_code ,"
+1051,"sum(t2.in_days)/count(1) as level_value,"
+1052,"now() as update_time ,"
+1053,"sum(t2.in_days)/count(1) as self_value  ,"
+1054,"null as check_flag  ,"
+1055,null as check_comm
+1056,from his_bi.dwd_inp_medical_d t1
+1057,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1058,where
+1059,key = 'D00113'
+1060,"and left(t1.st_date,6) = c_monthlist.month_id"
+1061,"group by left(t1.st_date,6);"
+1062,---女性生殖器脱垂平均住院日
+1063,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010503';
+1064,insert into his_bi.level_master_m
+1065,select
+1066,"left(t1.st_date,6) as month_id,"
+1067,"'LV00702010503' as level_code ,"
+1068,"sum(t2.in_days)/count(1) as level_value,"
+1069,"now() as update_time ,"
+1070,"sum(t2.in_days)/count(1) as self_value  ,"
+1071,"null as check_flag  ,"
+1072,null as check_comm
+1073,from his_bi.dwd_inp_medical_d t1
+1074,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1075,where
+1076,key = 'D00117'
+1077,"and left(t1.st_date,6) = c_monthlist.month_id"
+1078,"group by left(t1.st_date,6);"
+1079,---重度卵巢过度刺激综合征平均住院日
+1080,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010803';
+1081,insert into his_bi.level_master_m
+1082,select
+1083,"left(t1.st_date,6) as month_id,"
+1084,"'LV00702010803' as level_code ,"
+1085,"sum(t2.in_days)/count(1) as level_value,"
+1086,"now() as update_time ,"
+1087,"sum(t2.in_days)/count(1) as self_value  ,"
+1088,"null as check_flag  ,"
+1089,null as check_comm
+1090,from his_bi.dwd_inp_medical_d t1
+1091,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1092,where
+1093,key = 'D00121'
+1094,"and left(t1.st_date,6) = c_monthlist.month_id"
+1095,"group by left(t1.st_date,6);"
+1096,---重度子痫前期平均住院日
+1097,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010903';
+1098,insert into his_bi.level_master_m
+1099,select
+1100,"left(t1.st_date,6) as month_id,"
+1101,"'LV00702010903' as level_code ,"
+1102,"sum(t2.in_days)/count(1) as level_value,"
+1103,"now() as update_time ,"
+1104,"sum(t2.in_days)/count(1) as self_value  ,"
+1105,"null as check_flag  ,"
+1106,null as check_comm
+1107,from his_bi.dwd_inp_medical_d t1
+1108,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1109,where
+1110,key = 'D00111'
+1111,"and left(t1.st_date,6) = c_monthlist.month_id"
+1112,"group by left(t1.st_date,6);"
+1113,---早产平均住院日
+1114,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011003';
+1115,insert into his_bi.level_master_m
+1116,select
+1117,"left(t1.st_date,6) as month_id,"
+1118,"'LV00702011003' as level_code ,"
+1119,"sum(t2.in_days)/count(1) as level_value,"
+1120,"now() as update_time ,"
+1121,"sum(t2.in_days)/count(1) as self_value  ,"
+1122,"null as check_flag  ,"
+1123,null as check_comm
+1124,from his_bi.dwd_inp_medical_d t1
+1125,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1126,where
+1127,key = 'D00106'
+1128,"and left(t1.st_date,6) = c_monthlist.month_id"
+1129,"group by left(t1.st_date,6);"
+1130,---多胎妊娠平均住院日
+1131,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011103';
+1132,insert into his_bi.level_master_m
+1133,select
+1134,"left(t1.st_date,6) as month_id,"
+1135,"'LV00702011103' as level_code ,"
+1136,"sum(t2.in_days)/count(1) as level_value,"
+1137,"now() as update_time ,"
+1138,"sum(t2.in_days)/count(1) as self_value  ,"
+1139,"null as check_flag  ,"
+1140,null as check_comm
+1141,from his_bi.dwd_inp_medical_d t1
+1142,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1143,where
+1144,key = 'D00107'
+1145,"and left(t1.st_date,6) = c_monthlist.month_id"
+1146,"group by left(t1.st_date,6);"
+1147,---胎膜早破平均住院日
+1148,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011203';
+1149,insert into his_bi.level_master_m
+1150,select
+1151,"left(t1.st_date,6) as month_id,"
+1152,"'LV00702011203' as level_code ,"
+1153,"sum(t2.in_days)/count(1) as level_value,"
+1154,"now() as update_time ,"
+1155,"sum(t2.in_days)/count(1) as self_value  ,"
+1156,"null as check_flag  ,"
+1157,null as check_comm
+1158,from his_bi.dwd_inp_medical_d t1
+1159,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1160,where
+1161,key = 'D00108'
+1162,"and left(t1.st_date,6) = c_monthlist.month_id"
+1163,"group by left(t1.st_date,6);"
+1164,---前置胎盘平均住院日
+1165,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011303';
+1166,insert into his_bi.level_master_m
+1167,select
+1168,"left(t1.st_date,6) as month_id,"
+1169,"'LV00702011303' as level_code ,"
+1170,"sum(t2.in_days)/count(1) as level_value,"
+1171,"now() as update_time ,"
+1172,"sum(t2.in_days)/count(1) as self_value  ,"
+1173,"null as check_flag  ,"
+1174,null as check_comm
+1175,from his_bi.dwd_inp_medical_d t1
+1176,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1177,where
+1178,key = 'D00109'
+1179,"and left(t1.st_date,6) = c_monthlist.month_id"
+1180,"group by left(t1.st_date,6);"
+1181,---胎盘早剥平均住院日
+1182,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011403';
+1183,insert into his_bi.level_master_m
+1184,select
+1185,"left(t1.st_date,6) as month_id,"
+1186,"'LV00702011403' as level_code ,"
+1187,"sum(t2.in_days)/count(1) as level_value,"
+1188,"now() as update_time ,"
+1189,"sum(t2.in_days)/count(1) as self_value  ,"
+1190,"null as check_flag  ,"
+1191,null as check_comm
+1192,from his_bi.dwd_inp_medical_d t1
+1193,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1194,where
+1195,key = 'D00110'
+1196,"and left(t1.st_date,6) = c_monthlist.month_id"
+1197,"group by left(t1.st_date,6);"
+1198,---新生儿窒息平均住院日
+1199,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011503';
+1200,insert into his_bi.level_master_m
+1201,select
+1202,"left(t1.st_date,6) as month_id,"
+1203,"'LV00702011503' as level_code ,"
+1204,"sum(t2.in_days)/count(1) as level_value,"
+1205,"now() as update_time ,"
+1206,"sum(t2.in_days)/count(1) as self_value  ,"
+1207,"null as check_flag  ,"
+1208,null as check_comm
+1209,from his_bi.dwd_inp_medical_d t1
+1210,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1211,where
+1212,key = 'D00127'
+1213,"and left(t1.st_date,6) = c_monthlist.month_id"
+1214,"group by left(t1.st_date,6);"
+1215,---新生儿呼吸窘迫平均住院日
+1216,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011603';
+1217,insert into his_bi.level_master_m
+1218,select
+1219,"left(t1.st_date,6) as month_id,"
+1220,"'LV00702011603' as level_code ,"
+1221,"sum(t2.in_days)/count(1) as level_value,"
+1222,"now() as update_time ,"
+1223,"sum(t2.in_days)/count(1) as self_value  ,"
+1224,"null as check_flag  ,"
+1225,null as check_comm
+1226,from his_bi.dwd_inp_medical_d t1
+1227,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1228,where
+1229,key = 'D00128'
+1230,"and left(t1.st_date,6) = c_monthlist.month_id"
+1231,"group by left(t1.st_date,6);"
+1232,---支气管肺炎平均住院日
+1233,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011703';
+1234,insert into his_bi.level_master_m
+1235,select
+1236,"left(t1.st_date,6) as month_id,"
+1237,"'LV00702011703' as level_code ,"
+1238,"sum(t2.in_days)/count(1) as level_value,"
+1239,"now() as update_time ,"
+1240,"sum(t2.in_days)/count(1) as self_value  ,"
+1241,"null as check_flag  ,"
+1242,null as check_comm
+1243,from his_bi.dwd_inp_medical_d t1
+1244,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1245,where
+1246,key = 'D00123'
+1247,"and left(t1.st_date,6) = c_monthlist.month_id"
+1248,"group by left(t1.st_date,6);"
+1249,---小儿腹泻病平均住院日
+1250,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011803';
+1251,insert into his_bi.level_master_m
+1252,select
+1253,"left(t1.st_date,6) as month_id,"
+1254,"'LV00702011803' as level_code ,"
+1255,"sum(t2.in_days)/count(1) as level_value,"
+1256,"now() as update_time ,"
+1257,"sum(t2.in_days)/count(1) as self_value  ,"
+1258,"null as check_flag  ,"
+1259,null as check_comm
+1260,from his_bi.dwd_inp_medical_d t1
+1261,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1262,where
+1263,key = 'D00124'
+1264,"and left(t1.st_date,6) = c_monthlist.month_id"
+1265,"group by left(t1.st_date,6);"
+1266,---低出生体重儿平均住院日
+1267,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011903';
+1268,insert into his_bi.level_master_m
+1269,select
+1270,"left(t1.st_date,6) as month_id,"
+1271,"'LV00702011903' as level_code ,"
+1272,"sum(t2.in_days)/count(1) as level_value,"
+1273,"now() as update_time ,"
+1274,"sum(t2.in_days)/count(1) as self_value  ,"
+1275,"null as check_flag  ,"
+1276,null as check_comm
+1277,from his_bi.dwd_inp_medical_d t1
+1278,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1279,where
+1280,key = 'D00125'
+1281,"and left(t1.st_date,6) = c_monthlist.month_id"
+1282,"group by left(t1.st_date,6);"
+1283,---新生儿高胆红素血症平均住院日
+1284,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702012023';
+1285,insert into his_bi.level_master_m
+1286,select
+1287,"left(t1.st_date,6) as month_id,"
+1288,"'LV00702012023' as level_code ,"
+1289,"sum(t2.in_days)/count(1) as level_value,"
+1290,"now() as update_time ,"
+1291,"sum(t2.in_days)/count(1) as self_value  ,"
+1292,"null as check_flag  ,"
+1293,null as check_comm
+1294,from his_bi.dwd_inp_medical_d t1
+1295,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1296,where
+1297,key = 'D00126'
+1298,"and left(t1.st_date,6) = c_monthlist.month_id"
+1299,"group by left(t1.st_date,6);"
+1300,---产后出血平均住院费用
+1301,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010104';
+1302,insert into his_bi.level_master_m
+1303,select
+1304,"left(t1.st_date,6) as month_id,"
+1305,"'LV00702010104' as level_code ,"
+1306,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1307,"now() as update_time ,"
+1308,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1309,"null as check_flag  ,"
+1310,null as check_comm
+1311,from his_bi.dwd_inp_medical_d t1
+1312,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1313,where
+1314,key = 'D00105'
+1315,"and left(t1.st_date,6) = c_monthlist.month_id"
+1316,"group by left(t1.st_date,6);"
+1317,---妊娠合并糖尿病平均住院费用
+1318,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010204';
+1319,insert into his_bi.level_master_m
+1320,select
+1321,"left(t1.st_date,6) as month_id,"
+1322,"'LV00702010204' as level_code ,"
+1323,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1324,"now() as update_time ,"
+1325,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1326,"null as check_flag  ,"
+1327,null as check_comm
+1328,from his_bi.dwd_inp_medical_d t1
+1329,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1330,where
+1331,key = 'D00114'
+1332,"and left(t1.st_date,6) = c_monthlist.month_id"
+1333,"group by left(t1.st_date,6);"
+1334,---盆腔炎性疾病平均住院费用
+1335,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010304';
+1336,insert into his_bi.level_master_m
+1337,select
+1338,"left(t1.st_date,6) as month_id,"
+1339,"'LV00702010304' as level_code ,"
+1340,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1341,"now() as update_time ,"
+1342,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1343,"null as check_flag  ,"
+1344,null as check_comm
+1345,from his_bi.dwd_inp_medical_d t1
+1346,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1347,where
+1348,key = 'D00116'
+1349,"and left(t1.st_date,6) = c_monthlist.month_id"
+1350,"group by left(t1.st_date,6);"
+1351,---异位妊娠平均住院费用
+1352,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010404';
+1353,insert into his_bi.level_master_m
+1354,select
+1355,"left(t1.st_date,6) as month_id,"
+1356,"'LV00702010404' as level_code ,"
+1357,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1358,"now() as update_time ,"
+1359,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1360,"null as check_flag  ,"
+1361,null as check_comm
+1362,from his_bi.dwd_inp_medical_d t1
+1363,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1364,where
+1365,key = 'D00113'
+1366,"and left(t1.st_date,6) = c_monthlist.month_id"
+1367,"group by left(t1.st_date,6);"
+1368,---女性生殖器脱垂平均住院费用
+1369,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010504';
+1370,insert into his_bi.level_master_m
+1371,select
+1372,"left(t1.st_date,6) as month_id,"
+1373,"'LV00702010504' as level_code ,"
+1374,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1375,"now() as update_time ,"
+1376,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1377,"null as check_flag  ,"
+1378,null as check_comm
+1379,from his_bi.dwd_inp_medical_d t1
+1380,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1381,where
+1382,key = 'D00117'
+1383,"and left(t1.st_date,6) = c_monthlist.month_id"
+1384,"group by left(t1.st_date,6);"
+1385,---重度卵巢过度刺激综合征平均住院费用
+1386,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010804';
+1387,insert into his_bi.level_master_m
+1388,select
+1389,"left(t1.st_date,6) as month_id,"
+1390,"'LV00702010804' as level_code ,"
+1391,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1392,"now() as update_time ,"
+1393,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1394,"null as check_flag  ,"
+1395,null as check_comm
+1396,from his_bi.dwd_inp_medical_d t1
+1397,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1398,where
+1399,key = 'D00121'
+1400,"and left(t1.st_date,6) = c_monthlist.month_id"
+1401,"group by left(t1.st_date,6);"
+1402,---重度子痫前期平均住院费用
+1403,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010904';
+1404,insert into his_bi.level_master_m
+1405,select
+1406,"left(t1.st_date,6) as month_id,"
+1407,"'LV00702010904' as level_code ,"
+1408,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1409,"now() as update_time ,"
+1410,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1411,"null as check_flag  ,"
+1412,null as check_comm
+1413,from his_bi.dwd_inp_medical_d t1
+1414,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1415,where
+1416,key = 'D00111'
+1417,"and left(t1.st_date,6) = c_monthlist.month_id"
+1418,"group by left(t1.st_date,6);"
+1419,---早产平均住院费用
+1420,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011004';
+1421,insert into his_bi.level_master_m
+1422,select
+1423,"left(t1.st_date,6) as month_id,"
+1424,"'LV00702011004' as level_code ,"
+1425,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1426,"now() as update_time ,"
+1427,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1428,"null as check_flag  ,"
+1429,null as check_comm
+1430,from his_bi.dwd_inp_medical_d t1
+1431,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1432,where
+1433,key = 'D00106'
+1434,"and left(t1.st_date,6) = c_monthlist.month_id"
+1435,"group by left(t1.st_date,6);"
+1436,---多胎妊娠平均住院费用
+1437,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011104';
+1438,insert into his_bi.level_master_m
+1439,select
+1440,"left(t1.st_date,6) as month_id,"
+1441,"'LV00702011104' as level_code ,"
+1442,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1443,"now() as update_time ,"
+1444,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1445,"null as check_flag  ,"
+1446,null as check_comm
+1447,from his_bi.dwd_inp_medical_d t1
+1448,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1449,where
+1450,key = 'D00107'
+1451,"and left(t1.st_date,6) = c_monthlist.month_id"
+1452,"group by left(t1.st_date,6);"
+1453,---胎膜早破平均住院费用
+1454,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011204';
+1455,insert into his_bi.level_master_m
+1456,select
+1457,"left(t1.st_date,6) as month_id,"
+1458,"'LV00702011204' as level_code ,"
+1459,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1460,"now() as update_time ,"
+1461,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1462,"null as check_flag  ,"
+1463,null as check_comm
+1464,from his_bi.dwd_inp_medical_d t1
+1465,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1466,where
+1467,key = 'D00108'
+1468,"and left(t1.st_date,6) = c_monthlist.month_id"
+1469,"group by left(t1.st_date,6);"
+1470,---前置胎盘平均住院费用
+1471,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011304';
+1472,insert into his_bi.level_master_m
+1473,select
+1474,"left(t1.st_date,6) as month_id,"
+1475,"'LV00702011304' as level_code ,"
+1476,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1477,"now() as update_time ,"
+1478,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1479,"null as check_flag  ,"
+1480,null as check_comm
+1481,from his_bi.dwd_inp_medical_d t1
+1482,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1483,where
+1484,key = 'D00109'
+1485,"and left(t1.st_date,6) = c_monthlist.month_id"
+1486,"group by left(t1.st_date,6);"
+1487,---胎盘早剥平均住院费用
+1488,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011404';
+1489,insert into his_bi.level_master_m
+1490,select
+1491,"left(t1.st_date,6) as month_id,"
+1492,"'LV00702011404' as level_code ,"
+1493,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1494,"now() as update_time ,"
+1495,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1496,"null as check_flag  ,"
+1497,null as check_comm
+1498,from his_bi.dwd_inp_medical_d t1
+1499,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1500,where
+1501,key = 'D00110'
+1502,"and left(t1.st_date,6) = c_monthlist.month_id"
+1503,"group by left(t1.st_date,6);"
+1504,---新生儿窒息平均住院费用
+1505,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011504';
+1506,insert into his_bi.level_master_m
+1507,select
+1508,"left(t1.st_date,6) as month_id,"
+1509,"'LV00702011504' as level_code ,"
+1510,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1511,"now() as update_time ,"
+1512,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1513,"null as check_flag  ,"
+1514,null as check_comm
+1515,from his_bi.dwd_inp_medical_d t1
+1516,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1517,where
+1518,key = 'D00127'
+1519,"and left(t1.st_date,6) = c_monthlist.month_id"
+1520,"group by left(t1.st_date,6);"
+1521,---新生儿呼吸窘迫平均住院费用
+1522,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011604';
+1523,insert into his_bi.level_master_m
+1524,select
+1525,"left(t1.st_date,6) as month_id,"
+1526,"'LV00702011604' as level_code ,"
+1527,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1528,"now() as update_time ,"
+1529,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1530,"null as check_flag  ,"
+1531,null as check_comm
+1532,from his_bi.dwd_inp_medical_d t1
+1533,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1534,where
+1535,key = 'D00128'
+1536,"and left(t1.st_date,6) = c_monthlist.month_id"
+1537,"group by left(t1.st_date,6);"
+1538,---支气管肺炎平均住院费用
+1539,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011704';
+1540,insert into his_bi.level_master_m
+1541,select
+1542,"left(t1.st_date,6) as month_id,"
+1543,"'LV00702011704' as level_code ,"
+1544,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1545,"now() as update_time ,"
+1546,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1547,"null as check_flag  ,"
+1548,null as check_comm
+1549,from his_bi.dwd_inp_medical_d t1
+1550,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1551,where
+1552,key = 'D00123'
+1553,"and left(t1.st_date,6) = c_monthlist.month_id"
+1554,"group by left(t1.st_date,6);"
+1555,---小儿腹泻病平均住院费用
+1556,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011804';
+1557,insert into his_bi.level_master_m
+1558,select
+1559,"left(t1.st_date,6) as month_id,"
+1560,"'LV00702011804' as level_code ,"
+1561,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1562,"now() as update_time ,"
+1563,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1564,"null as check_flag  ,"
+1565,null as check_comm
+1566,from his_bi.dwd_inp_medical_d t1
+1567,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1568,where
+1569,key = 'D00124'
+1570,"and left(t1.st_date,6) = c_monthlist.month_id"
+1571,"group by left(t1.st_date,6);"
+1572,---低出生体重儿平均住院费用
+1573,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011904';
+1574,insert into his_bi.level_master_m
+1575,select
+1576,"left(t1.st_date,6) as month_id,"
+1577,"'LV00702011904' as level_code ,"
+1578,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1579,"now() as update_time ,"
+1580,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1581,"null as check_flag  ,"
+1582,null as check_comm
+1583,from his_bi.dwd_inp_medical_d t1
+1584,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1585,where
+1586,key = 'D00125'
+1587,"and left(t1.st_date,6) = c_monthlist.month_id"
+1588,"group by left(t1.st_date,6);"
+1589,---新生儿高胆红素血症平均住院费用
+1590,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702012024';
+1591,insert into his_bi.level_master_m
+1592,select
+1593,"left(t1.st_date,6) as month_id,"
+1594,"'LV00702012024' as level_code ,"
+1595,"round(sum(t2.total_fees)/count(1),4) as level_value,"
+1596,"now() as update_time ,"
+1597,"round(sum(t2.total_fees)/count(1),4) as self_value  ,"
+1598,"null as check_flag  ,"
+1599,null as check_comm
+1600,from his_bi.dwd_inp_medical_d t1
+1601,inner join his_bi.dw_inp_patient_info_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+1602,where
+1603,key = 'D00126'
+1604,"and left(t1.st_date,6) = c_monthlist.month_id"
+1605,"group by left(t1.st_date,6);"
+1606,---产后出血15天再住院率（包括计划内及非计划重返）
+1607,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010106';
+1608,insert into his_bi.level_master_m
+1609,select
+1610,"left(t1.st_date,6) as month_id,"
+1611,"'LV00702010106' as level_code ,"
+1612,"round(coalesce(sum(case when t1.key = 'D00105' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1613,"now() as update_time ,"
+1614,"round(coalesce(sum(case when t1.key = 'D00105' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1615,"null as check_flag  ,"
+1616,null as check_comm
+1617,from his_bi.dwd_inp_medical_d t1
+1618,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1619,where
+1620,"left(t1.st_date,6) = c_monthlist.month_id"
+1621,"group by left(t1.st_date,6);"
+1622,---妊娠合并糖尿病15天再住院率（包括计划内及非计划重返）
+1623,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010206';
+1624,insert into his_bi.level_master_m
+1625,select
+1626,"left(t1.st_date,6) as month_id,"
+1627,"'LV00702010206' as level_code ,"
+1628,"round(coalesce(sum(case when t1.key = 'D00114' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1629,"now() as update_time ,"
+1630,"round(coalesce(sum(case when t1.key = 'D00114' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1631,"null as check_flag  ,"
+1632,null as check_comm
+1633,from his_bi.dwd_inp_medical_d t1
+1634,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1635,where
+1636,"left(t1.st_date,6) = c_monthlist.month_id"
+1637,"group by left(t1.st_date,6);"
+1638,---盆腔炎性疾病15天再住院率（包括计划内及非计划重返）
+1639,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010306';
+1640,insert into his_bi.level_master_m
+1641,select
+1642,"left(t1.st_date,6) as month_id,"
+1643,"'LV00702010306' as level_code ,"
+1644,"round(coalesce(sum(case when t1.key = 'D00116' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1645,"now() as update_time ,"
+1646,"round(coalesce(sum(case when t1.key = 'D00116' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1647,"null as check_flag  ,"
+1648,null as check_comm
+1649,from his_bi.dwd_inp_medical_d t1
+1650,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1651,where
+1652,"left(t1.st_date,6) = c_monthlist.month_id"
+1653,"group by left(t1.st_date,6);"
+1654,---异位妊娠15天再住院率（包括计划内及非计划重返）
+1655,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010406';
+1656,insert into his_bi.level_master_m
+1657,select
+1658,"left(t1.st_date,6) as month_id,"
+1659,"'LV00702010406' as level_code ,"
+1660,"round(coalesce(sum(case when t1.key = 'D00113' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1661,"now() as update_time ,"
+1662,"round(coalesce(sum(case when t1.key = 'D00113' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1663,"null as check_flag  ,"
+1664,null as check_comm
+1665,from his_bi.dwd_inp_medical_d t1
+1666,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1667,where
+1668,"left(t1.st_date,6) = c_monthlist.month_id"
+1669,"group by left(t1.st_date,6);"
+1670,---女性生殖器脱垂15天再住院率（包括计划内及非计划重返）
+1671,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010506';
+1672,insert into his_bi.level_master_m
+1673,select
+1674,"left(t1.st_date,6) as month_id,"
+1675,"'LV00702010506' as level_code ,"
+1676,"round(coalesce(sum(case when t1.key = 'D00117' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1677,"now() as update_time ,"
+1678,"round(coalesce(sum(case when t1.key = 'D00117' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1679,"null as check_flag  ,"
+1680,null as check_comm
+1681,from his_bi.dwd_inp_medical_d t1
+1682,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1683,where
+1684,"left(t1.st_date,6) = c_monthlist.month_id"
+1685,"group by left(t1.st_date,6);"
+1686,---重度卵巢过度刺激综合征15天再住院率（包括计划内及非计划重返）
+1687,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010806';
+1688,insert into his_bi.level_master_m
+1689,select
+1690,"left(t1.st_date,6) as month_id,"
+1691,"'LV00702010806' as level_code ,"
+1692,"round(coalesce(sum(case when t1.key = 'D00121' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1693,"now() as update_time ,"
+1694,"round(coalesce(sum(case when t1.key = 'D00121' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1695,"null as check_flag  ,"
+1696,null as check_comm
+1697,from his_bi.dwd_inp_medical_d t1
+1698,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1699,where
+1700,"left(t1.st_date,6) = c_monthlist.month_id"
+1701,"group by left(t1.st_date,6);"
+1702,---重度子痫前期15天再住院率（包括计划内及非计划重返）
+1703,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010906';
+1704,insert into his_bi.level_master_m
+1705,select
+1706,"left(t1.st_date,6) as month_id,"
+1707,"'LV00702010906' as level_code ,"
+1708,"round(coalesce(sum(case when t1.key = 'D00111' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1709,"now() as update_time ,"
+1710,"round(coalesce(sum(case when t1.key = 'D00111' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1711,"null as check_flag  ,"
+1712,null as check_comm
+1713,from his_bi.dwd_inp_medical_d t1
+1714,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1715,where
+1716,"left(t1.st_date,6) = c_monthlist.month_id"
+1717,"group by left(t1.st_date,6);"
+1718,---早产15天再住院率（包括计划内及非计划重返）
+1719,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011006';
+1720,insert into his_bi.level_master_m
+1721,select
+1722,"left(t1.st_date,6) as month_id,"
+1723,"'LV00702011006' as level_code ,"
+1724,"round(coalesce(sum(case when t1.key = 'D00106' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1725,"now() as update_time ,"
+1726,"round(coalesce(sum(case when t1.key = 'D00106' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1727,"null as check_flag  ,"
+1728,null as check_comm
+1729,from his_bi.dwd_inp_medical_d t1
+1730,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1731,where
+1732,"left(t1.st_date,6) = c_monthlist.month_id"
+1733,"group by left(t1.st_date,6);"
+1734,---多胎妊娠15天再住院率（包括计划内及非计划重返）
+1735,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011106';
+1736,insert into his_bi.level_master_m
+1737,select
+1738,"left(t1.st_date,6) as month_id,"
+1739,"'LV00702011106' as level_code ,"
+1740,"round(coalesce(sum(case when t1.key = 'D00107' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1741,"now() as update_time ,"
+1742,"round(coalesce(sum(case when t1.key = 'D00107' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1743,"null as check_flag  ,"
+1744,null as check_comm
+1745,from his_bi.dwd_inp_medical_d t1
+1746,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1747,where
+1748,"left(t1.st_date,6) = c_monthlist.month_id"
+1749,"group by left(t1.st_date,6);"
+1750,---胎膜早破15天再住院率（包括计划内及非计划重返）
+1751,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011206';
+1752,insert into his_bi.level_master_m
+1753,select
+1754,"left(t1.st_date,6) as month_id,"
+1755,"'LV00702011206' as level_code ,"
+1756,"round(coalesce(sum(case when t1.key = 'D00108' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1757,"now() as update_time ,"
+1758,"round(coalesce(sum(case when t1.key = 'D00108' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1759,"null as check_flag  ,"
+1760,null as check_comm
+1761,from his_bi.dwd_inp_medical_d t1
+1762,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1763,where
+1764,"left(t1.st_date,6) = c_monthlist.month_id"
+1765,"group by left(t1.st_date,6);"
+1766,---前置胎盘15天再住院率（包括计划内及非计划重返）
+1767,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011306';
+1768,insert into his_bi.level_master_m
+1769,select
+1770,"left(t1.st_date,6) as month_id,"
+1771,"'LV00702011306' as level_code ,"
+1772,"round(coalesce(sum(case when t1.key = 'D00109' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1773,"now() as update_time ,"
+1774,"round(coalesce(sum(case when t1.key = 'D00109' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1775,"null as check_flag  ,"
+1776,null as check_comm
+1777,from his_bi.dwd_inp_medical_d t1
+1778,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1779,where
+1780,"left(t1.st_date,6) = c_monthlist.month_id"
+1781,"group by left(t1.st_date,6);"
+1782,---胎盘早剥15天再住院率（包括计划内及非计划重返）
+1783,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011406';
+1784,insert into his_bi.level_master_m
+1785,select
+1786,"left(t1.st_date,6) as month_id,"
+1787,"'LV00702011406' as level_code ,"
+1788,"round(coalesce(sum(case when t1.key = 'D00110' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1789,"now() as update_time ,"
+1790,"round(coalesce(sum(case when t1.key = 'D00110' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1791,"null as check_flag  ,"
+1792,null as check_comm
+1793,from his_bi.dwd_inp_medical_d t1
+1794,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1795,where
+1796,"left(t1.st_date,6) = c_monthlist.month_id"
+1797,"group by left(t1.st_date,6);"
+1798,---新生儿窒息15天再住院率（包括计划内及非计划重返）
+1799,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011506';
+1800,insert into his_bi.level_master_m
+1801,select
+1802,"left(t1.st_date,6) as month_id,"
+1803,"'LV00702011506' as level_code ,"
+1804,"round(coalesce(sum(case when t1.key = 'D00127' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1805,"now() as update_time ,"
+1806,"round(coalesce(sum(case when t1.key = 'D00127' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1807,"null as check_flag  ,"
+1808,null as check_comm
+1809,from his_bi.dwd_inp_medical_d t1
+1810,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1811,where
+1812,"left(t1.st_date,6) = c_monthlist.month_id"
+1813,"group by left(t1.st_date,6);"
+1814,---新生儿呼吸窘迫15天再住院率（包括计划内及非计划重返）
+1815,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011606';
+1816,insert into his_bi.level_master_m
+1817,select
+1818,"left(t1.st_date,6) as month_id,"
+1819,"'LV00702011606' as level_code ,"
+1820,"round(coalesce(sum(case when t1.key = 'D00128' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1821,"now() as update_time ,"
+1822,"round(coalesce(sum(case when t1.key = 'D00128' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1823,"null as check_flag  ,"
+1824,null as check_comm
+1825,from his_bi.dwd_inp_medical_d t1
+1826,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1827,where
+1828,"left(t1.st_date,6) = c_monthlist.month_id"
+1829,"group by left(t1.st_date,6);"
+1830,---支气管肺炎15天再住院率（包括计划内及非计划重返）
+1831,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011706';
+1832,insert into his_bi.level_master_m
+1833,select
+1834,"left(t1.st_date,6) as month_id,"
+1835,"'LV00702011706' as level_code ,"
+1836,"round(coalesce(sum(case when t1.key = 'D00123' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1837,"now() as update_time ,"
+1838,"round(coalesce(sum(case when t1.key = 'D00123' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1839,"null as check_flag  ,"
+1840,null as check_comm
+1841,from his_bi.dwd_inp_medical_d t1
+1842,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1843,where
+1844,"left(t1.st_date,6) = c_monthlist.month_id"
+1845,"group by left(t1.st_date,6);"
+1846,---小儿腹泻病15天再住院率（包括计划内及非计划重返）
+1847,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011806';
+1848,insert into his_bi.level_master_m
+1849,select
+1850,"left(t1.st_date,6) as month_id,"
+1851,"'LV00702011806' as level_code ,"
+1852,"round(coalesce(sum(case when t1.key = 'D00124' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1853,"now() as update_time ,"
+1854,"round(coalesce(sum(case when t1.key = 'D00124' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1855,"null as check_flag  ,"
+1856,null as check_comm
+1857,from his_bi.dwd_inp_medical_d t1
+1858,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1859,where
+1860,"left(t1.st_date,6) = c_monthlist.month_id"
+1861,"group by left(t1.st_date,6);"
+1862,---低出生体重儿15天再住院率（包括计划内及非计划重返）
+1863,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011906';
+1864,insert into his_bi.level_master_m
+1865,select
+1866,"left(t1.st_date,6) as month_id,"
+1867,"'LV00702011906' as level_code ,"
+1868,"round(coalesce(sum(case when t1.key = 'D00125' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1869,"now() as update_time ,"
+1870,"round(coalesce(sum(case when t1.key = 'D00125' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1871,"null as check_flag  ,"
+1872,null as check_comm
+1873,from his_bi.dwd_inp_medical_d t1
+1874,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1875,where
+1876,"left(t1.st_date,6) = c_monthlist.month_id"
+1877,"group by left(t1.st_date,6);"
+1878,---新生儿高胆红素血症15天再住院率（包括计划内及非计划重返）
+1879,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702012026';
+1880,insert into his_bi.level_master_m
+1881,select
+1882,"left(t1.st_date,6) as month_id,"
+1883,"'LV00702012026' as level_code ,"
+1884,"round(coalesce(sum(case when t1.key = 'D00126' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1885,"now() as update_time ,"
+1886,"round(coalesce(sum(case when t1.key = 'D00126' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1887,"null as check_flag  ,"
+1888,null as check_comm
+1889,from his_bi.dwd_inp_medical_d t1
+1890,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00215'
+1891,where
+1892,"left(t1.st_date,6) = c_monthlist.month_id"
+1893,"group by left(t1.st_date,6);"
+1894,---产后出血31天再住院率（包括计划内及非计划重返）
+1895,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010107';
+1896,insert into his_bi.level_master_m
+1897,select
+1898,"left(t1.st_date,6) as month_id,"
+1899,"'LV00702010107' as level_code ,"
+1900,"round(coalesce(sum(case when t1.key = 'D00105' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1901,"now() as update_time ,"
+1902,"round(coalesce(sum(case when t1.key = 'D00105' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1903,"null as check_flag  ,"
+1904,null as check_comm
+1905,from his_bi.dwd_inp_medical_d t1
+1906,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+1907,where
+1908,"left(t1.st_date,6) = c_monthlist.month_id"
+1909,"group by left(t1.st_date,6);"
+1910,---妊娠合并糖尿病31天再住院率（包括计划内及非计划重返）
+1911,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010207';
+1912,insert into his_bi.level_master_m
+1913,select
+1914,"left(t1.st_date,6) as month_id,"
+1915,"'LV00702010207' as level_code ,"
+1916,"round(coalesce(sum(case when t1.key = 'D00114' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1917,"now() as update_time ,"
+1918,"round(coalesce(sum(case when t1.key = 'D00114' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1919,"null as check_flag  ,"
+1920,null as check_comm
+1921,from his_bi.dwd_inp_medical_d t1
+1922,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+1923,where
+1924,"left(t1.st_date,6) = c_monthlist.month_id"
+1925,"group by left(t1.st_date,6);"
+1926,---盆腔炎性疾病31天再住院率（包括计划内及非计划重返）
+1927,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010307';
+1928,insert into his_bi.level_master_m
+1929,select
+1930,"left(t1.st_date,6) as month_id,"
+1931,"'LV00702010307' as level_code ,"
+1932,"round(coalesce(sum(case when t1.key = 'D00116' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1933,"now() as update_time ,"
+1934,"round(coalesce(sum(case when t1.key = 'D00116' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1935,"null as check_flag  ,"
+1936,null as check_comm
+1937,from his_bi.dwd_inp_medical_d t1
+1938,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+1939,where
+1940,"left(t1.st_date,6) = c_monthlist.month_id"
+1941,"group by left(t1.st_date,6);"
+1942,---异位妊娠31天再住院率（包括计划内及非计划重返）
+1943,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010407';
+1944,insert into his_bi.level_master_m
+1945,select
+1946,"left(t1.st_date,6) as month_id,"
+1947,"'LV00702010407' as level_code ,"
+1948,"round(coalesce(sum(case when t1.key = 'D00113' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1949,"now() as update_time ,"
+1950,"round(coalesce(sum(case when t1.key = 'D00113' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1951,"null as check_flag  ,"
+1952,null as check_comm
+1953,from his_bi.dwd_inp_medical_d t1
+1954,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+1955,where
+1956,"left(t1.st_date,6) = c_monthlist.month_id"
+1957,"group by left(t1.st_date,6);"
+1958,---女性生殖器脱垂31天再住院率（包括计划内及非计划重返）
+1959,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010507';
+1960,insert into his_bi.level_master_m
+1961,select
+1962,"left(t1.st_date,6) as month_id,"
+1963,"'LV00702010507' as level_code ,"
+1964,"round(coalesce(sum(case when t1.key = 'D00117' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1965,"now() as update_time ,"
+1966,"round(coalesce(sum(case when t1.key = 'D00117' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1967,"null as check_flag  ,"
+1968,null as check_comm
+1969,from his_bi.dwd_inp_medical_d t1
+1970,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+1971,where
+1972,"left(t1.st_date,6) = c_monthlist.month_id"
+1973,"group by left(t1.st_date,6);"
+1974,---重度卵巢过度刺激综合征31天再住院率（包括计划内及非计划重返）
+1975,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010807';
+1976,insert into his_bi.level_master_m
+1977,select
+1978,"left(t1.st_date,6) as month_id,"
+1979,"'LV00702010807' as level_code ,"
+1980,"round(coalesce(sum(case when t1.key = 'D00121' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1981,"now() as update_time ,"
+1982,"round(coalesce(sum(case when t1.key = 'D00121' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1983,"null as check_flag  ,"
+1984,null as check_comm
+1985,from his_bi.dwd_inp_medical_d t1
+1986,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+1987,where
+1988,"left(t1.st_date,6) = c_monthlist.month_id"
+1989,"group by left(t1.st_date,6);"
+1990,---重度子痫前期31天再住院率（包括计划内及非计划重返）
+1991,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702010907';
+1992,insert into his_bi.level_master_m
+1993,select
+1994,"left(t1.st_date,6) as month_id,"
+1995,"'LV00702010907' as level_code ,"
+1996,"round(coalesce(sum(case when t1.key = 'D00111' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+1997,"now() as update_time ,"
+1998,"round(coalesce(sum(case when t1.key = 'D00111' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+1999,"null as check_flag  ,"
+2000,null as check_comm
+2001,from his_bi.dwd_inp_medical_d t1
+2002,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2003,where
+2004,"left(t1.st_date,6) = c_monthlist.month_id"
+2005,"group by left(t1.st_date,6);"
+2006,---早产31天再住院率（包括计划内及非计划重返）
+2007,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011007';
+2008,insert into his_bi.level_master_m
+2009,select
+2010,"left(t1.st_date,6) as month_id,"
+2011,"'LV00702011007' as level_code ,"
+2012,"round(coalesce(sum(case when t1.key = 'D00106' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2013,"now() as update_time ,"
+2014,"round(coalesce(sum(case when t1.key = 'D00106' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2015,"null as check_flag  ,"
+2016,null as check_comm
+2017,from his_bi.dwd_inp_medical_d t1
+2018,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2019,where
+2020,"left(t1.st_date,6) = c_monthlist.month_id"
+2021,"group by left(t1.st_date,6);"
+2022,---多胎妊娠31天再住院率（包括计划内及非计划重返）
+2023,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011107';
+2024,insert into his_bi.level_master_m
+2025,select
+2026,"left(t1.st_date,6) as month_id,"
+2027,"'LV00702011107' as level_code ,"
+2028,"round(coalesce(sum(case when t1.key = 'D00107' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2029,"now() as update_time ,"
+2030,"round(coalesce(sum(case when t1.key = 'D00107' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2031,"null as check_flag  ,"
+2032,null as check_comm
+2033,from his_bi.dwd_inp_medical_d t1
+2034,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2035,where
+2036,"left(t1.st_date,6) = c_monthlist.month_id"
+2037,"group by left(t1.st_date,6);"
+2038,---胎膜早破31天再住院率（包括计划内及非计划重返）
+2039,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011207';
+2040,insert into his_bi.level_master_m
+2041,select
+2042,"left(t1.st_date,6) as month_id,"
+2043,"'LV00702011207' as level_code ,"
+2044,"round(coalesce(sum(case when t1.key = 'D00108' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2045,"now() as update_time ,"
+2046,"round(coalesce(sum(case when t1.key = 'D00108' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2047,"null as check_flag  ,"
+2048,null as check_comm
+2049,from his_bi.dwd_inp_medical_d t1
+2050,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2051,where
+2052,"left(t1.st_date,6) = c_monthlist.month_id"
+2053,"group by left(t1.st_date,6);"
+2054,---前置胎盘31天再住院率（包括计划内及非计划重返）
+2055,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011307';
+2056,insert into his_bi.level_master_m
+2057,select
+2058,"left(t1.st_date,6) as month_id,"
+2059,"'LV00702011307' as level_code ,"
+2060,"round(coalesce(sum(case when t1.key = 'D00109' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2061,"now() as update_time ,"
+2062,"round(coalesce(sum(case when t1.key = 'D00109' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2063,"null as check_flag  ,"
+2064,null as check_comm
+2065,from his_bi.dwd_inp_medical_d t1
+2066,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2067,where
+2068,"left(t1.st_date,6) = c_monthlist.month_id"
+2069,"group by left(t1.st_date,6);"
+2070,---胎盘早剥31天再住院率（包括计划内及非计划重返）
+2071,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011407';
+2072,insert into his_bi.level_master_m
+2073,select
+2074,"left(t1.st_date,6) as month_id,"
+2075,"'LV00702011407' as level_code ,"
+2076,"round(coalesce(sum(case when t1.key = 'D00110' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2077,"now() as update_time ,"
+2078,"round(coalesce(sum(case when t1.key = 'D00110' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2079,"null as check_flag  ,"
+2080,null as check_comm
+2081,from his_bi.dwd_inp_medical_d t1
+2082,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2083,where
+2084,"left(t1.st_date,6) = c_monthlist.month_id"
+2085,"group by left(t1.st_date,6);"
+2086,---新生儿窒息31天再住院率（包括计划内及非计划重返）
+2087,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011507';
+2088,insert into his_bi.level_master_m
+2089,select
+2090,"left(t1.st_date,6) as month_id,"
+2091,"'LV00702011507' as level_code ,"
+2092,"round(coalesce(sum(case when t1.key = 'D00127' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2093,"now() as update_time ,"
+2094,"round(coalesce(sum(case when t1.key = 'D00127' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2095,"null as check_flag  ,"
+2096,null as check_comm
+2097,from his_bi.dwd_inp_medical_d t1
+2098,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2099,where
+2100,"left(t1.st_date,6) = c_monthlist.month_id"
+2101,"group by left(t1.st_date,6);"
+2102,---新生儿呼吸窘迫31天再住院率（包括计划内及非计划重返）
+2103,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011607';
+2104,insert into his_bi.level_master_m
+2105,select
+2106,"left(t1.st_date,6) as month_id,"
+2107,"'LV00702011607' as level_code ,"
+2108,"round(coalesce(sum(case when t1.key = 'D00128' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2109,"now() as update_time ,"
+2110,"round(coalesce(sum(case when t1.key = 'D00128' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2111,"null as check_flag  ,"
+2112,null as check_comm
+2113,from his_bi.dwd_inp_medical_d t1
+2114,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2115,where
+2116,"left(t1.st_date,6) = c_monthlist.month_id"
+2117,"group by left(t1.st_date,6);"
+2118,---支气管肺炎31天再住院率（包括计划内及非计划重返）
+2119,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011707';
+2120,insert into his_bi.level_master_m
+2121,select
+2122,"left(t1.st_date,6) as month_id,"
+2123,"'LV00702011707' as level_code ,"
+2124,"round(coalesce(sum(case when t1.key = 'D00123' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2125,"now() as update_time ,"
+2126,"round(coalesce(sum(case when t1.key = 'D00123' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2127,"null as check_flag  ,"
+2128,null as check_comm
+2129,from his_bi.dwd_inp_medical_d t1
+2130,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2131,where
+2132,"left(t1.st_date,6) = c_monthlist.month_id"
+2133,"group by left(t1.st_date,6);"
+2134,---小儿腹泻病31天再住院率（包括计划内及非计划重返）
+2135,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011807';
+2136,insert into his_bi.level_master_m
+2137,select
+2138,"left(t1.st_date,6) as month_id,"
+2139,"'LV00702011807' as level_code ,"
+2140,"round(coalesce(sum(case when t1.key = 'D00124' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2141,"now() as update_time ,"
+2142,"round(coalesce(sum(case when t1.key = 'D00124' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2143,"null as check_flag  ,"
+2144,null as check_comm
+2145,from his_bi.dwd_inp_medical_d t1
+2146,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2147,where
+2148,"left(t1.st_date,6) = c_monthlist.month_id"
+2149,"group by left(t1.st_date,6);"
+2150,---低出生体重儿31天再住院率（包括计划内及非计划重返）
+2151,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702011907';
+2152,insert into his_bi.level_master_m
+2153,select
+2154,"left(t1.st_date,6) as month_id,"
+2155,"'LV00702011907' as level_code ,"
+2156,"round(coalesce(sum(case when t1.key = 'D00125' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2157,"now() as update_time ,"
+2158,"round(coalesce(sum(case when t1.key = 'D00125' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2159,"null as check_flag  ,"
+2160,null as check_comm
+2161,from his_bi.dwd_inp_medical_d t1
+2162,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2163,where
+2164,"left(t1.st_date,6) = c_monthlist.month_id"
+2165,"group by left(t1.st_date,6);"
+2166,---新生儿高胆红素血症31天再住院率（包括计划内及非计划重返）
+2167,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702012027';
+2168,insert into his_bi.level_master_m
+2169,select
+2170,"left(t1.st_date,6) as month_id,"
+2171,"'LV00702012027' as level_code ,"
+2172,"round(coalesce(sum(case when t1.key = 'D00126' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as level_value,"
+2173,"now() as update_time ,"
+2174,"round(coalesce(sum(case when t1.key = 'D00126' then 1 end)*1.00/ count(t2.pai_visit_id),0)*100,4) as self_value  ,"
+2175,"null as check_flag  ,"
+2176,null as check_comm
+2177,from his_bi.dwd_inp_medical_d t1
+2178,inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key = 'D00216'
+2179,where
+2180,"left(t1.st_date,6) = c_monthlist.month_id"
+2181,"group by left(t1.st_date,6);"
+2182,---平均每张床位工作日
+2183,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010402';
+2184,insert into his_bi.level_master_m
+2185,select
+2186,"replace(left(stat_date::text,7),'-','') as month_id,"
+2187,"'LV007010402' as level_code,"
+2188,"sum(bed_used_ending)/(sum(t1.sy_num)/(DATE_PART('days', DATE_TRUNC('month',t1.stat_date)+ '1 MONTH'::INTERVAL"
+2189,"    - '1 DAY'::INTERVAL))) as level_value,"
+2190,"now() as update_time ,"
+2191,"sum(bed_used_ending)/(sum(t1.sy_num)/(DATE_PART('days', DATE_TRUNC('month',t1.stat_date)+ '1 MONTH'::INTERVAL"
+2192,"    - '1 DAY'::INTERVAL)))  as self_value,"
+2193,"null as check_flag  ,"
+2194,null as check_comm
+2195,from his_bi.dw_inp_dept_work_d t1
+2196,where
+2197,"replace(left(stat_date::text,7),'-','')  = c_monthlist.month_id"
+2198,"group by (DATE_PART('days', DATE_TRUNC('month',t1.stat_date)+ '1 MONTH'::INTERVAL"
+2199,"    - '1 DAY'::INTERVAL)),replace(left(stat_date::text,7),'-','');"
+2200,---子宫切除术总例数
+2201,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020101';
+2202,insert into his_bi.level_master_m
+2203,select
+2204,"left(t1.st_date,6) as month_id,"
+2205,"'LV00702020101' as level_code ,"
+2206,"count( distinct t1.pai_visit_id)  as level_value,"
+2207,"now() as update_time ,"
+2208,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2209,"null as check_flag  ,"
+2210,null as check_comm
+2211,from his_bi.dwd_inp_medical_d t1
+2212,where
+2213,"left(t1.st_date,6) = c_monthlist.month_id"
+2214,and t1.key = 'D00182'
+2215,"group by left(t1.st_date,6);"
+2216,---宫腔镜下宫腔粘连切除术总例数
+2217,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020201';
+2218,insert into his_bi.level_master_m
+2219,select
+2220,"left(t1.st_date,6) as month_id,"
+2221,"'LV00702020201' as level_code ,"
+2222,"count( distinct t1.pai_visit_id)  as level_value,"
+2223,"now() as update_time ,"
+2224,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2225,"null as check_flag  ,"
+2226,null as check_comm
+2227,from his_bi.dwd_inp_medical_d t1
+2228,where
+2229,"left(t1.st_date,6) = c_monthlist.month_id"
+2230,and t1.key = 'D00193'
+2231,"group by left(t1.st_date,6);"
+2232,---盆底重建术总例数
+2233,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020301';
+2234,insert into his_bi.level_master_m
+2235,select
+2236,"left(t1.st_date,6) as month_id,"
+2237,"'LV00702020301' as level_code ,"
+2238,"count( distinct t1.pai_visit_id)  as level_value,"
+2239,"now() as update_time ,"
+2240,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2241,"null as check_flag  ,"
+2242,null as check_comm
+2243,from his_bi.dwd_inp_medical_d t1
+2244,where
+2245,"left(t1.st_date,6) = c_monthlist.month_id"
+2246,and t1.key = 'D00194'
+2247,"group by left(t1.st_date,6);"
+2248,---剖宫产总例数
+2249,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020401';
+2250,insert into his_bi.level_master_m
+2251,select
+2252,"left(t1.st_date,6) as month_id,"
+2253,"'LV00702020401' as level_code ,"
+2254,"count( distinct t1.pai_visit_id)  as level_value,"
+2255,"now() as update_time ,"
+2256,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2257,"null as check_flag  ,"
+2258,null as check_comm
+2259,from his_bi.dwd_inp_medical_d t1
+2260,where
+2261,"left(t1.st_date,6) = c_monthlist.month_id"
+2262,and t1.key = 'D00183'
+2263,"group by left(t1.st_date,6);"
+2264,---产钳助产术总例数
+2265,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020501';
+2266,insert into his_bi.level_master_m
+2267,select
+2268,"left(t1.st_date,6) as month_id,"
+2269,"'LV00702020501' as level_code ,"
+2270,"count( distinct t1.pai_visit_id)  as level_value,"
+2271,"now() as update_time ,"
+2272,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2273,"null as check_flag  ,"
+2274,null as check_comm
+2275,from his_bi.dwd_inp_medical_d t1
+2276,where
+2277,"left(t1.st_date,6) = c_monthlist.month_id"
+2278,and t1.key = 'D00196'
+2279,"group by left(t1.st_date,6);"
+2280,---子宫颈根治性切除术总例数
+2281,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020601';
+2282,insert into his_bi.level_master_m
+2283,select
+2284,"left(t1.st_date,6) as month_id,"
+2285,"'LV00702020601' as level_code ,"
+2286,"count( distinct t1.pai_visit_id)  as level_value,"
+2287,"now() as update_time ,"
+2288,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2289,"null as check_flag  ,"
+2290,null as check_comm
+2291,from his_bi.dwd_inp_medical_d t1
+2292,where
+2293,"left(t1.st_date,6) = c_monthlist.month_id"
+2294,and t1.key = 'D00197'
+2295,"group by left(t1.st_date,6);"
+2296,---腹腔镜下子宫次全切除术总例数
+2297,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020701';
+2298,insert into his_bi.level_master_m
+2299,select
+2300,"left(t1.st_date,6) as month_id,"
+2301,"'LV00702020701' as level_code ,"
+2302,"count( distinct t1.pai_visit_id)  as level_value,"
+2303,"now() as update_time ,"
+2304,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2305,"null as check_flag  ,"
+2306,null as check_comm
+2307,from his_bi.dwd_inp_medical_d t1
+2308,where
+2309,"left(t1.st_date,6) = c_monthlist.month_id"
+2310,and t1.key = 'D00198'
+2311,"group by left(t1.st_date,6);"
+2312,---腹腔镜下子宫全切除术总例数
+2313,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020801';
+2314,insert into his_bi.level_master_m
+2315,select
+2316,"left(t1.st_date,6) as month_id,"
+2317,"'LV00702020801' as level_code ,"
+2318,"count( distinct t1.pai_visit_id)  as level_value,"
+2319,"now() as update_time ,"
+2320,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2321,"null as check_flag  ,"
+2322,null as check_comm
+2323,from his_bi.dwd_inp_medical_d t1
+2324,where
+2325,"left(t1.st_date,6) = c_monthlist.month_id"
+2326,and t1.key = 'D00199'
+2327,"group by left(t1.st_date,6);"
+2328,---腹腔镜下子宫肌瘤切除术总例数
+2329,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020901';
+2330,insert into his_bi.level_master_m
+2331,select
+2332,"left(t1.st_date,6) as month_id,"
+2333,"'LV00702020901' as level_code ,"
+2334,"count( distinct t1.pai_visit_id)  as level_value,"
+2335,"now() as update_time ,"
+2336,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2337,"null as check_flag  ,"
+2338,null as check_comm
+2339,from his_bi.dwd_inp_medical_d t1
+2340,where
+2341,"left(t1.st_date,6) = c_monthlist.month_id"
+2342,and t1.key = 'D00200'
+2343,"group by left(t1.st_date,6);"
+2344,---宫腔镜电切术总例数
+2345,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021001';
+2346,insert into his_bi.level_master_m
+2347,select
+2348,"left(t1.st_date,6) as month_id,"
+2349,"'LV00702021001' as level_code ,"
+2350,"count( distinct t1.pai_visit_id)  as level_value,"
+2351,"now() as update_time ,"
+2352,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2353,"null as check_flag  ,"
+2354,null as check_comm
+2355,from his_bi.dwd_inp_medical_d t1
+2356,where
+2357,"left(t1.st_date,6) = c_monthlist.month_id"
+2358,and t1.key = 'D00201'
+2359,"group by left(t1.st_date,6);"
+2360,---阴式子宫肌瘤切除术总例数
+2361,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021101';
+2362,insert into his_bi.level_master_m
+2363,select
+2364,"left(t1.st_date,6) as month_id,"
+2365,"'LV00702021101' as level_code ,"
+2366,"count( distinct t1.pai_visit_id)  as level_value,"
+2367,"now() as update_time ,"
+2368,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2369,"null as check_flag  ,"
+2370,null as check_comm
+2371,from his_bi.dwd_inp_medical_d t1
+2372,where
+2373,"left(t1.st_date,6) = c_monthlist.month_id"
+2374,and t1.key = 'D00202'
+2375,"group by left(t1.st_date,6);"
+2376,---广泛全子宫清除术总例数
+2377,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021201';
+2378,insert into his_bi.level_master_m
+2379,select
+2380,"left(t1.st_date,6) as month_id,"
+2381,"'LV00702021201' as level_code ,"
+2382,"count( distinct t1.pai_visit_id)  as level_value,"
+2383,"now() as update_time ,"
+2384,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2385,"null as check_flag  ,"
+2386,null as check_comm
+2387,from his_bi.dwd_inp_medical_d t1
+2388,where
+2389,"left(t1.st_date,6) = c_monthlist.month_id"
+2390,and t1.key = 'D00203'
+2391,"group by left(t1.st_date,6);"
+2392,---乳腺癌根治术总例数
+2393,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021301';
+2394,insert into his_bi.level_master_m
+2395,select
+2396,"left(t1.st_date,6) as month_id,"
+2397,"'LV00702021301' as level_code ,"
+2398,"count( distinct t1.pai_visit_id)  as level_value,"
+2399,"now() as update_time ,"
+2400,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2401,"null as check_flag  ,"
+2402,null as check_comm
+2403,from his_bi.dwd_inp_medical_d t1
+2404,where
+2405,"left(t1.st_date,6) = c_monthlist.month_id"
+2406,and t1.key = 'D00204'
+2407,"group by left(t1.st_date,6);"
+2408,---子宫切除术死亡例数
+2409,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020102';
+2410,insert into his_bi.level_master_m
+2411,select
+2412,"left(t1.st_date,6) as month_id,"
+2413,"'LV00702020102' as level_code ,"
+2414,"count( distinct t1.pai_visit_id)  as level_value,"
+2415,"now() as update_time ,"
+2416,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2417,"null as check_flag  ,"
+2418,null as check_comm
+2419,from his_bi.dwd_inp_medical_d t1
+2420,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2421,where
+2422,"left(t1.st_date,6) = c_monthlist.month_id"
+2423,and t1.key = 'D00182'
+2424,and t2.lyfs = '5'
+2425,"group by left(t1.st_date,6);"
+2426,---宫腔镜下宫腔粘连切除术死亡例数
+2427,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020202';
+2428,insert into his_bi.level_master_m
+2429,select
+2430,"left(t1.st_date,6) as month_id,"
+2431,"'LV00702020202' as level_code ,"
+2432,"count( distinct t1.pai_visit_id)  as level_value,"
+2433,"now() as update_time ,"
+2434,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2435,"null as check_flag  ,"
+2436,null as check_comm
+2437,from his_bi.dwd_inp_medical_d t1
+2438,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2439,where
+2440,"left(t1.st_date,6) = c_monthlist.month_id"
+2441,and t1.key = 'D00193'
+2442,and t2.lyfs = '5'
+2443,"group by left(t1.st_date,6);"
+2444,---盆底重建术死亡例数
+2445,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020302';
+2446,insert into his_bi.level_master_m
+2447,select
+2448,"left(t1.st_date,6) as month_id,"
+2449,"'LV00702020302' as level_code ,"
+2450,"count( distinct t1.pai_visit_id)  as level_value,"
+2451,"now() as update_time ,"
+2452,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2453,"null as check_flag  ,"
+2454,null as check_comm
+2455,from his_bi.dwd_inp_medical_d t1
+2456,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2457,where
+2458,"left(t1.st_date,6) = c_monthlist.month_id"
+2459,and t1.key = 'D00194'
+2460,and t2.lyfs = '5'
+2461,"group by left(t1.st_date,6);"
+2462,---剖宫产死亡例数
+2463,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020402';
+2464,insert into his_bi.level_master_m
+2465,select
+2466,"left(t1.st_date,6) as month_id,"
+2467,"'LV00702020402' as level_code ,"
+2468,"count( distinct t1.pai_visit_id)  as level_value,"
+2469,"now() as update_time ,"
+2470,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2471,"null as check_flag  ,"
+2472,null as check_comm
+2473,from his_bi.dwd_inp_medical_d t1
+2474,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2475,where
+2476,"left(t1.st_date,6) = c_monthlist.month_id"
+2477,and t1.key = 'D00183'
+2478,and t2.lyfs = '5'
+2479,"group by left(t1.st_date,6);"
+2480,---产钳助产术死亡例数
+2481,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020502';
+2482,insert into his_bi.level_master_m
+2483,select
+2484,"left(t1.st_date,6) as month_id,"
+2485,"'LV00702020502' as level_code ,"
+2486,"count( distinct t1.pai_visit_id)  as level_value,"
+2487,"now() as update_time ,"
+2488,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2489,"null as check_flag  ,"
+2490,null as check_comm
+2491,from his_bi.dwd_inp_medical_d t1
+2492,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2493,where
+2494,"left(t1.st_date,6) = c_monthlist.month_id"
+2495,and t1.key = 'D00196'
+2496,and t2.lyfs = '5'
+2497,"group by left(t1.st_date,6);"
+2498,---子宫颈根治性切除术死亡例数
+2499,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020602';
+2500,insert into his_bi.level_master_m
+2501,select
+2502,"left(t1.st_date,6) as month_id,"
+2503,"'LV00702020602' as level_code ,"
+2504,"count( distinct t1.pai_visit_id)  as level_value,"
+2505,"now() as update_time ,"
+2506,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2507,"null as check_flag  ,"
+2508,null as check_comm
+2509,from his_bi.dwd_inp_medical_d t1
+2510,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2511,where
+2512,"left(t1.st_date,6) = c_monthlist.month_id"
+2513,and t1.key = 'D00197'
+2514,and t2.lyfs = '5'
+2515,"group by left(t1.st_date,6);"
+2516,---腹腔镜下子宫次全切除术死亡例数
+2517,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020702';
+2518,insert into his_bi.level_master_m
+2519,select
+2520,"left(t1.st_date,6) as month_id,"
+2521,"'LV00702020702' as level_code ,"
+2522,"count( distinct t1.pai_visit_id)  as level_value,"
+2523,"now() as update_time ,"
+2524,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2525,"null as check_flag  ,"
+2526,null as check_comm
+2527,from his_bi.dwd_inp_medical_d t1
+2528,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2529,where
+2530,"left(t1.st_date,6) = c_monthlist.month_id"
+2531,and t1.key = 'D00198'
+2532,and t2.lyfs = '5'
+2533,"group by left(t1.st_date,6);"
+2534,---腹腔镜下子宫全切除术死亡例数
+2535,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020802';
+2536,insert into his_bi.level_master_m
+2537,select
+2538,"left(t1.st_date,6) as month_id,"
+2539,"'LV00702020802' as level_code ,"
+2540,"count( distinct t1.pai_visit_id)  as level_value,"
+2541,"now() as update_time ,"
+2542,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2543,"null as check_flag  ,"
+2544,null as check_comm
+2545,from his_bi.dwd_inp_medical_d t1
+2546,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2547,where
+2548,"left(t1.st_date,6) = c_monthlist.month_id"
+2549,and t1.key = 'D00199'
+2550,and t2.lyfs = '5'
+2551,"group by left(t1.st_date,6);"
+2552,---腹腔镜下子宫肌瘤切除术死亡例数
+2553,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020902';
+2554,insert into his_bi.level_master_m
+2555,select
+2556,"left(t1.st_date,6) as month_id,"
+2557,"'LV00702020902' as level_code ,"
+2558,"count( distinct t1.pai_visit_id)  as level_value,"
+2559,"now() as update_time ,"
+2560,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2561,"null as check_flag  ,"
+2562,null as check_comm
+2563,from his_bi.dwd_inp_medical_d t1
+2564,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2565,where
+2566,"left(t1.st_date,6) = c_monthlist.month_id"
+2567,and t1.key = 'D00200'
+2568,and t2.lyfs = '5'
+2569,"group by left(t1.st_date,6);"
+2570,---宫腔镜电切术死亡例数
+2571,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021002';
+2572,insert into his_bi.level_master_m
+2573,select
+2574,"left(t1.st_date,6) as month_id,"
+2575,"'LV00702021002' as level_code ,"
+2576,"count( distinct t1.pai_visit_id)  as level_value,"
+2577,"now() as update_time ,"
+2578,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2579,"null as check_flag  ,"
+2580,null as check_comm
+2581,from his_bi.dwd_inp_medical_d t1
+2582,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2583,where
+2584,"left(t1.st_date,6) = c_monthlist.month_id"
+2585,and t1.key = 'D00201'
+2586,and t2.lyfs = '5'
+2587,"group by left(t1.st_date,6);"
+2588,---阴式子宫肌瘤切除术死亡例数
+2589,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021102';
+2590,insert into his_bi.level_master_m
+2591,select
+2592,"left(t1.st_date,6) as month_id,"
+2593,"'LV00702021102' as level_code ,"
+2594,"count( distinct t1.pai_visit_id)  as level_value,"
+2595,"now() as update_time ,"
+2596,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2597,"null as check_flag  ,"
+2598,null as check_comm
+2599,from his_bi.dwd_inp_medical_d t1
+2600,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2601,where
+2602,"left(t1.st_date,6) = c_monthlist.month_id"
+2603,and t1.key = 'D00202'
+2604,and t2.lyfs = '5'
+2605,"group by left(t1.st_date,6);"
+2606,---广泛全子宫清除术死亡例数
+2607,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021202';
+2608,insert into his_bi.level_master_m
+2609,select
+2610,"left(t1.st_date,6) as month_id,"
+2611,"'LV00702021202' as level_code ,"
+2612,"count( distinct t1.pai_visit_id)  as level_value,"
+2613,"now() as update_time ,"
+2614,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2615,"null as check_flag  ,"
+2616,null as check_comm
+2617,from his_bi.dwd_inp_medical_d t1
+2618,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2619,where
+2620,"left(t1.st_date,6) = c_monthlist.month_id"
+2621,and t1.key = 'D00203'
+2622,and t2.lyfs = '5'
+2623,"group by left(t1.st_date,6);"
+2624,---乳腺癌根治术死亡例数
+2625,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021302';
+2626,insert into his_bi.level_master_m
+2627,select
+2628,"left(t1.st_date,6) as month_id,"
+2629,"'LV00702021302' as level_code ,"
+2630,"count( distinct t1.pai_visit_id)  as level_value,"
+2631,"now() as update_time ,"
+2632,"count( distinct t1.pai_visit_id)  as self_value  ,"
+2633,"null as check_flag  ,"
+2634,null as check_comm
+2635,from his_bi.dwd_inp_medical_d t1
+2636,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2637,where
+2638,"left(t1.st_date,6) = c_monthlist.month_id"
+2639,and t1.key = 'D00204'
+2640,and t2.lyfs = '5'
+2641,"group by left(t1.st_date,6);"
+2642,---子宫切除术平均住院日
+2643,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020103';
+2644,insert into his_bi.level_master_m
+2645,select
+2646,"left(t1.st_date,6) as month_id,"
+2647,"'LV00702020103' as level_code ,"
+2648,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2649,"now() as update_time ,"
+2650,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2651,"null as check_flag  ,"
+2652,null as check_comm
+2653,from his_bi.dwd_inp_medical_d t1
+2654,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2655,where
+2656,"left(t1.st_date,6) = c_monthlist.month_id"
+2657,and t1.key = 'D00182'
+2658,"group by left(t1.st_date,6);"
+2659,---宫腔镜下宫腔粘连切除术平均住院日
+2660,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020203';
+2661,insert into his_bi.level_master_m
+2662,select
+2663,"left(t1.st_date,6) as month_id,"
+2664,"'LV00702020203' as level_code ,"
+2665,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2666,"now() as update_time ,"
+2667,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2668,"null as check_flag  ,"
+2669,null as check_comm
+2670,from his_bi.dwd_inp_medical_d t1
+2671,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2672,where
+2673,"left(t1.st_date,6) = c_monthlist.month_id"
+2674,and t1.key = 'D00193'
+2675,"group by left(t1.st_date,6);"
+2676,---盆底重建术平均住院日
+2677,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020303';
+2678,insert into his_bi.level_master_m
+2679,select
+2680,"left(t1.st_date,6) as month_id,"
+2681,"'LV00702020303' as level_code ,"
+2682,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2683,"now() as update_time ,"
+2684,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2685,"null as check_flag  ,"
+2686,null as check_comm
+2687,from his_bi.dwd_inp_medical_d t1
+2688,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2689,where
+2690,"left(t1.st_date,6) = c_monthlist.month_id"
+2691,and t1.key = 'D00194'
+2692,"group by left(t1.st_date,6);"
+2693,---剖宫产平均住院日
+2694,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020403';
+2695,insert into his_bi.level_master_m
+2696,select
+2697,"left(t1.st_date,6) as month_id,"
+2698,"'LV00702020403' as level_code ,"
+2699,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2700,"now() as update_time ,"
+2701,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2702,"null as check_flag  ,"
+2703,null as check_comm
+2704,from his_bi.dwd_inp_medical_d t1
+2705,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2706,where
+2707,"left(t1.st_date,6) = c_monthlist.month_id"
+2708,and t1.key = 'D00183'
+2709,"group by left(t1.st_date,6);"
+2710,---产钳助产术平均住院日
+2711,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020503';
+2712,insert into his_bi.level_master_m
+2713,select
+2714,"left(t1.st_date,6) as month_id,"
+2715,"'LV00702020503' as level_code ,"
+2716,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2717,"now() as update_time ,"
+2718,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2719,"null as check_flag  ,"
+2720,null as check_comm
+2721,from his_bi.dwd_inp_medical_d t1
+2722,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2723,where
+2724,"left(t1.st_date,6) = c_monthlist.month_id"
+2725,and t1.key = 'D00196'
+2726,"group by left(t1.st_date,6);"
+2727,---子宫颈根治性切除术平均住院日
+2728,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020603';
+2729,insert into his_bi.level_master_m
+2730,select
+2731,"left(t1.st_date,6) as month_id,"
+2732,"'LV00702020603' as level_code ,"
+2733,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2734,"now() as update_time ,"
+2735,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2736,"null as check_flag  ,"
+2737,null as check_comm
+2738,from his_bi.dwd_inp_medical_d t1
+2739,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2740,where
+2741,"left(t1.st_date,6) = c_monthlist.month_id"
+2742,and t1.key = 'D00197'
+2743,"group by left(t1.st_date,6);"
+2744,---腹腔镜下子宫次全切除术平均住院日
+2745,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020703';
+2746,insert into his_bi.level_master_m
+2747,select
+2748,"left(t1.st_date,6) as month_id,"
+2749,"'LV00702020703' as level_code ,"
+2750,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2751,"now() as update_time ,"
+2752,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2753,"null as check_flag  ,"
+2754,null as check_comm
+2755,from his_bi.dwd_inp_medical_d t1
+2756,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2757,where
+2758,"left(t1.st_date,6) = c_monthlist.month_id"
+2759,and t1.key = 'D00198'
+2760,"group by left(t1.st_date,6);"
+2761,---腹腔镜下子宫全切除术平均住院日
+2762,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020803';
+2763,insert into his_bi.level_master_m
+2764,select
+2765,"left(t1.st_date,6) as month_id,"
+2766,"'LV00702020803' as level_code ,"
+2767,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2768,"now() as update_time ,"
+2769,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2770,"null as check_flag  ,"
+2771,null as check_comm
+2772,from his_bi.dwd_inp_medical_d t1
+2773,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2774,where
+2775,"left(t1.st_date,6) = c_monthlist.month_id"
+2776,and t1.key = 'D00199'
+2777,"group by left(t1.st_date,6);"
+2778,---腹腔镜下子宫肌瘤切除术平均住院日
+2779,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020903';
+2780,insert into his_bi.level_master_m
+2781,select
+2782,"left(t1.st_date,6) as month_id,"
+2783,"'LV00702020903' as level_code ,"
+2784,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2785,"now() as update_time ,"
+2786,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2787,"null as check_flag  ,"
+2788,null as check_comm
+2789,from his_bi.dwd_inp_medical_d t1
+2790,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2791,where
+2792,"left(t1.st_date,6) = c_monthlist.month_id"
+2793,and t1.key = 'D00200'
+2794,"group by left(t1.st_date,6);"
+2795,---宫腔镜电切术平均住院日
+2796,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021003';
+2797,insert into his_bi.level_master_m
+2798,select
+2799,"left(t1.st_date,6) as month_id,"
+2800,"'LV00702021003' as level_code ,"
+2801,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2802,"now() as update_time ,"
+2803,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2804,"null as check_flag  ,"
+2805,null as check_comm
+2806,from his_bi.dwd_inp_medical_d t1
+2807,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2808,where
+2809,"left(t1.st_date,6) = c_monthlist.month_id"
+2810,and t1.key = 'D00201'
+2811,"group by left(t1.st_date,6);"
+2812,---阴式子宫肌瘤切除术平均住院日
+2813,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021103';
+2814,insert into his_bi.level_master_m
+2815,select
+2816,"left(t1.st_date,6) as month_id,"
+2817,"'LV00702021103' as level_code ,"
+2818,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2819,"now() as update_time ,"
+2820,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2821,"null as check_flag  ,"
+2822,null as check_comm
+2823,from his_bi.dwd_inp_medical_d t1
+2824,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2825,where
+2826,"left(t1.st_date,6) = c_monthlist.month_id"
+2827,and t1.key = 'D00202'
+2828,"group by left(t1.st_date,6);"
+2829,---广泛全子宫切除术平均住院日
+2830,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021203';
+2831,insert into his_bi.level_master_m
+2832,select
+2833,"left(t1.st_date,6) as month_id,"
+2834,"'LV00702021203' as level_code ,"
+2835,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2836,"now() as update_time ,"
+2837,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2838,"null as check_flag  ,"
+2839,null as check_comm
+2840,from his_bi.dwd_inp_medical_d t1
+2841,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2842,where
+2843,"left(t1.st_date,6) = c_monthlist.month_id"
+2844,and t1.key = 'D00203'
+2845,"group by left(t1.st_date,6);"
+2846,---乳腺癌根治术平均住院日
+2847,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021303';
+2848,insert into his_bi.level_master_m
+2849,select
+2850,"left(t1.st_date,6) as month_id,"
+2851,"'LV00702021303' as level_code ,"
+2852,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as level_value,"
+2853,"now() as update_time ,"
+2854,"sum(t2.in_days)/count(distinct t1.pai_visit_id)  as self_value  ,"
+2855,"null as check_flag  ,"
+2856,null as check_comm
+2857,from his_bi.dwd_inp_medical_d t1
+2858,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2859,where
+2860,"left(t1.st_date,6) = c_monthlist.month_id"
+2861,and t1.key = 'D00204'
+2862,"group by left(t1.st_date,6);"
+2863,---子宫切除术平均住院费用
+2864,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020104';
+2865,insert into his_bi.level_master_m
+2866,select
+2867,"left(t1.st_date,6) as month_id,"
+2868,"'LV00702020104' as level_code ,"
+2869,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2870,"now() as update_time ,"
+2871,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2872,"null as check_flag  ,"
+2873,null as check_comm
+2874,from his_bi.dwd_inp_medical_d t1
+2875,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2876,where
+2877,"left(t1.st_date,6) = c_monthlist.month_id"
+2878,and t1.key = 'D00182'
+2879,"group by left(t1.st_date,6);"
+2880,---宫腔镜下宫腔粘连切除术平均住院费用
+2881,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020204';
+2882,insert into his_bi.level_master_m
+2883,select
+2884,"left(t1.st_date,6) as month_id,"
+2885,"'LV00702020204' as level_code ,"
+2886,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2887,"now() as update_time ,"
+2888,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2889,"null as check_flag  ,"
+2890,null as check_comm
+2891,from his_bi.dwd_inp_medical_d t1
+2892,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2893,where
+2894,"left(t1.st_date,6) = c_monthlist.month_id"
+2895,and t1.key = 'D00193'
+2896,"group by left(t1.st_date,6);"
+2897,---盆底重建术平均住院费用
+2898,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020304';
+2899,insert into his_bi.level_master_m
+2900,select
+2901,"left(t1.st_date,6) as month_id,"
+2902,"'LV00702020304' as level_code ,"
+2903,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2904,"now() as update_time ,"
+2905,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2906,"null as check_flag  ,"
+2907,null as check_comm
+2908,from his_bi.dwd_inp_medical_d t1
+2909,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2910,where
+2911,"left(t1.st_date,6) = c_monthlist.month_id"
+2912,and t1.key = 'D00194'
+2913,"group by left(t1.st_date,6);"
+2914,---剖宫产平均住院费用
+2915,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020404';
+2916,insert into his_bi.level_master_m
+2917,select
+2918,"left(t1.st_date,6) as month_id,"
+2919,"'LV00702020404' as level_code ,"
+2920,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2921,"now() as update_time ,"
+2922,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2923,"null as check_flag  ,"
+2924,null as check_comm
+2925,from his_bi.dwd_inp_medical_d t1
+2926,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2927,where
+2928,"left(t1.st_date,6) = c_monthlist.month_id"
+2929,and t1.key = 'D00183'
+2930,"group by left(t1.st_date,6);"
+2931,---产钳助产术平均住院费用
+2932,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020504';
+2933,insert into his_bi.level_master_m
+2934,select
+2935,"left(t1.st_date,6) as month_id,"
+2936,"'LV00702020504' as level_code ,"
+2937,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2938,"now() as update_time ,"
+2939,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2940,"null as check_flag  ,"
+2941,null as check_comm
+2942,from his_bi.dwd_inp_medical_d t1
+2943,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2944,where
+2945,"left(t1.st_date,6) = c_monthlist.month_id"
+2946,and t1.key = 'D00196'
+2947,"group by left(t1.st_date,6);"
+2948,---子宫颈根治性切除术平均住院费用
+2949,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020604';
+2950,insert into his_bi.level_master_m
+2951,select
+2952,"left(t1.st_date,6) as month_id,"
+2953,"'LV00702020604' as level_code ,"
+2954,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2955,"now() as update_time ,"
+2956,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2957,"null as check_flag  ,"
+2958,null as check_comm
+2959,from his_bi.dwd_inp_medical_d t1
+2960,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2961,where
+2962,"left(t1.st_date,6) = c_monthlist.month_id"
+2963,and t1.key = 'D00197'
+2964,"group by left(t1.st_date,6);"
+2965,---腹腔镜下子宫次全切除术平均住院费用
+2966,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020704';
+2967,insert into his_bi.level_master_m
+2968,select
+2969,"left(t1.st_date,6) as month_id,"
+2970,"'LV00702020704' as level_code ,"
+2971,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2972,"now() as update_time ,"
+2973,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2974,"null as check_flag  ,"
+2975,null as check_comm
+2976,from his_bi.dwd_inp_medical_d t1
+2977,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2978,where
+2979,"left(t1.st_date,6) = c_monthlist.month_id"
+2980,and t1.key = 'D00198'
+2981,"group by left(t1.st_date,6);"
+2982,---腹腔镜下子宫全切除术平均住院费用
+2983,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020804';
+2984,insert into his_bi.level_master_m
+2985,select
+2986,"left(t1.st_date,6) as month_id,"
+2987,"'LV00702020804' as level_code ,"
+2988,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+2989,"now() as update_time ,"
+2990,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+2991,"null as check_flag  ,"
+2992,null as check_comm
+2993,from his_bi.dwd_inp_medical_d t1
+2994,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+2995,where
+2996,"left(t1.st_date,6) = c_monthlist.month_id"
+2997,and t1.key = 'D00199'
+2998,"group by left(t1.st_date,6);"
+2999,---腹腔镜下子宫肌瘤切除术平均住院费用
+3000,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020904';
+3001,insert into his_bi.level_master_m
+3002,select
+3003,"left(t1.st_date,6) as month_id,"
+3004,"'LV00702020904' as level_code ,"
+3005,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+3006,"now() as update_time ,"
+3007,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+3008,"null as check_flag  ,"
+3009,null as check_comm
+3010,from his_bi.dwd_inp_medical_d t1
+3011,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3012,where
+3013,"left(t1.st_date,6) = c_monthlist.month_id"
+3014,and t1.key = 'D00200'
+3015,"group by left(t1.st_date,6);"
+3016,---宫腔镜电切术平均住院费用
+3017,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021004';
+3018,insert into his_bi.level_master_m
+3019,select
+3020,"left(t1.st_date,6) as month_id,"
+3021,"'LV00702021004' as level_code ,"
+3022,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+3023,"now() as update_time ,"
+3024,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+3025,"null as check_flag  ,"
+3026,null as check_comm
+3027,from his_bi.dwd_inp_medical_d t1
+3028,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3029,where
+3030,"left(t1.st_date,6) = c_monthlist.month_id"
+3031,and t1.key = 'D00201'
+3032,"group by left(t1.st_date,6);"
+3033,---阴式子宫肌瘤切除术平均住院费用
+3034,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021104';
+3035,insert into his_bi.level_master_m
+3036,select
+3037,"left(t1.st_date,6) as month_id,"
+3038,"'LV00702021104' as level_code ,"
+3039,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+3040,"now() as update_time ,"
+3041,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+3042,"null as check_flag  ,"
+3043,null as check_comm
+3044,from his_bi.dwd_inp_medical_d t1
+3045,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3046,where
+3047,"left(t1.st_date,6) = c_monthlist.month_id"
+3048,and t1.key = 'D00202'
+3049,"group by left(t1.st_date,6);"
+3050,---广泛全子宫切除术平均住院费用
+3051,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021204';
+3052,insert into his_bi.level_master_m
+3053,select
+3054,"left(t1.st_date,6) as month_id,"
+3055,"'LV00702021204' as level_code ,"
+3056,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+3057,"now() as update_time ,"
+3058,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+3059,"null as check_flag  ,"
+3060,null as check_comm
+3061,from his_bi.dwd_inp_medical_d t1
+3062,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3063,where
+3064,"left(t1.st_date,6) = c_monthlist.month_id"
+3065,and t1.key = 'D00203'
+3066,"group by left(t1.st_date,6);"
+3067,---乳腺癌根治术平均住院费用
+3068,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021304';
+3069,insert into his_bi.level_master_m
+3070,select
+3071,"left(t1.st_date,6) as month_id,"
+3072,"'LV00702021304' as level_code ,"
+3073,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as level_value,"
+3074,"now() as update_time ,"
+3075,"round(sum(t2.total_fees)/count(distinct t1.pai_visit_id),4)  as self_value  ,"
+3076,"null as check_flag  ,"
+3077,null as check_comm
+3078,from his_bi.dwd_inp_medical_d t1
+3079,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3080,where
+3081,"left(t1.st_date,6) = c_monthlist.month_id"
+3082,and t1.key = 'D00204'
+3083,"group by left(t1.st_date,6);"
+3084,---子宫切除术术后非预期重返手术室例数
+3085,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020106';
+3086,insert into his_bi.level_master_m
+3087,select
+3088,"left(t1.st_date,6) as month_id,"
+3089,"'LV00702020106' as level_code ,"
+3090,"count(distinct t1.pai_visit_id)   as level_value,"
+3091,"now() as update_time ,"
+3092,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3093,"null as check_flag  ,"
+3094,null as check_comm
+3095,from his_bi.dwd_inp_medical_d t1
+3096,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3097,where
+3098,"left(t1.st_date,6) = c_monthlist.month_id"
+3099,and t1.key = 'D00182'
+3100,"group by left(t1.st_date,6);"
+3101,---宫腔镜下宫腔粘连切除术术后非预期重返手术室例数
+3102,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020206';
+3103,insert into his_bi.level_master_m
+3104,select
+3105,"left(t1.st_date,6) as month_id,"
+3106,"'LV00702020206' as level_code ,"
+3107,"count(distinct t1.pai_visit_id)   as level_value,"
+3108,"now() as update_time ,"
+3109,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3110,"null as check_flag  ,"
+3111,null as check_comm
+3112,from his_bi.dwd_inp_medical_d t1
+3113,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3114,where
+3115,"left(t1.st_date,6) = c_monthlist.month_id"
+3116,and t1.key = 'D00193'
+3117,"group by left(t1.st_date,6);"
+3118,---盆底重建术术后非预期重返手术室例数
+3119,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020306';
+3120,insert into his_bi.level_master_m
+3121,select
+3122,"left(t1.st_date,6) as month_id,"
+3123,"'LV00702020306' as level_code ,"
+3124,"count(distinct t1.pai_visit_id)   as level_value,"
+3125,"now() as update_time ,"
+3126,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3127,"null as check_flag  ,"
+3128,null as check_comm
+3129,from his_bi.dwd_inp_medical_d t1
+3130,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3131,where
+3132,"left(t1.st_date,6) = c_monthlist.month_id"
+3133,and t1.key = 'D00194'
+3134,"group by left(t1.st_date,6);"
+3135,---剖宫产术后非预期重返手术室例数
+3136,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020406';
+3137,insert into his_bi.level_master_m
+3138,select
+3139,"left(t1.st_date,6) as month_id,"
+3140,"'LV00702020406' as level_code ,"
+3141,"count(distinct t1.pai_visit_id)   as level_value,"
+3142,"now() as update_time ,"
+3143,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3144,"null as check_flag  ,"
+3145,null as check_comm
+3146,from his_bi.dwd_inp_medical_d t1
+3147,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3148,where
+3149,"left(t1.st_date,6) = c_monthlist.month_id"
+3150,and t1.key = 'D00183'
+3151,"group by left(t1.st_date,6);"
+3152,---产钳助产术术后非预期重返手术室例数
+3153,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020506';
+3154,insert into his_bi.level_master_m
+3155,select
+3156,"left(t1.st_date,6) as month_id,"
+3157,"'LV00702020506' as level_code ,"
+3158,"count(distinct t1.pai_visit_id)   as level_value,"
+3159,"now() as update_time ,"
+3160,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3161,"null as check_flag  ,"
+3162,null as check_comm
+3163,from his_bi.dwd_inp_medical_d t1
+3164,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3165,where
+3166,"left(t1.st_date,6) = c_monthlist.month_id"
+3167,and t1.key = 'D00196'
+3168,"group by left(t1.st_date,6);"
+3169,---子宫颈根治性切除术术后非预期重返手术室例数
+3170,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020606';
+3171,insert into his_bi.level_master_m
+3172,select
+3173,"left(t1.st_date,6) as month_id,"
+3174,"'LV00702020606' as level_code ,"
+3175,"count(distinct t1.pai_visit_id)   as level_value,"
+3176,"now() as update_time ,"
+3177,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3178,"null as check_flag  ,"
+3179,null as check_comm
+3180,from his_bi.dwd_inp_medical_d t1
+3181,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3182,where
+3183,"left(t1.st_date,6) = c_monthlist.month_id"
+3184,and t1.key = 'D00197'
+3185,"group by left(t1.st_date,6);"
+3186,---腹腔镜下子宫次全切除术术后非预期重返手术室例数
+3187,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020706';
+3188,insert into his_bi.level_master_m
+3189,select
+3190,"left(t1.st_date,6) as month_id,"
+3191,"'LV00702020706' as level_code ,"
+3192,"count(distinct t1.pai_visit_id)   as level_value,"
+3193,"now() as update_time ,"
+3194,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3195,"null as check_flag  ,"
+3196,null as check_comm
+3197,from his_bi.dwd_inp_medical_d t1
+3198,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3199,where
+3200,"left(t1.st_date,6) = c_monthlist.month_id"
+3201,and t1.key = 'D00198'
+3202,"group by left(t1.st_date,6);"
+3203,---腹腔镜下子宫全切除术术后非预期重返手术室例数
+3204,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020806';
+3205,insert into his_bi.level_master_m
+3206,select
+3207,"left(t1.st_date,6) as month_id,"
+3208,"'LV00702020806' as level_code ,"
+3209,"count(distinct t1.pai_visit_id)   as level_value,"
+3210,"now() as update_time ,"
+3211,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3212,"null as check_flag  ,"
+3213,null as check_comm
+3214,from his_bi.dwd_inp_medical_d t1
+3215,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3216,where
+3217,"left(t1.st_date,6) = c_monthlist.month_id"
+3218,and t1.key = 'D00199'
+3219,"group by left(t1.st_date,6);"
+3220,---腹腔镜下子宫肌瘤切除术术后非预期重返手术室例数
+3221,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702020906';
+3222,insert into his_bi.level_master_m
+3223,select
+3224,"left(t1.st_date,6) as month_id,"
+3225,"'LV00702020906' as level_code ,"
+3226,"count(distinct t1.pai_visit_id)   as level_value,"
+3227,"now() as update_time ,"
+3228,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3229,"null as check_flag  ,"
+3230,null as check_comm
+3231,from his_bi.dwd_inp_medical_d t1
+3232,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3233,where
+3234,"left(t1.st_date,6) = c_monthlist.month_id"
+3235,and t1.key = 'D00200'
+3236,"group by left(t1.st_date,6);"
+3237,---宫腔镜电切术后非预期重返手术室例数
+3238,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021006';
+3239,insert into his_bi.level_master_m
+3240,select
+3241,"left(t1.st_date,6) as month_id,"
+3242,"'LV00702021006' as level_code ,"
+3243,"count(distinct t1.pai_visit_id)   as level_value,"
+3244,"now() as update_time ,"
+3245,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3246,"null as check_flag  ,"
+3247,null as check_comm
+3248,from his_bi.dwd_inp_medical_d t1
+3249,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3250,where
+3251,"left(t1.st_date,6) = c_monthlist.month_id"
+3252,and t1.key = 'D00201'
+3253,"group by left(t1.st_date,6);"
+3254,---阴式子宫肌瘤切除术术后非预期重返手术室例数
+3255,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021106';
+3256,insert into his_bi.level_master_m
+3257,select
+3258,"left(t1.st_date,6) as month_id,"
+3259,"'LV00702021106' as level_code ,"
+3260,"count(distinct t1.pai_visit_id)   as level_value,"
+3261,"now() as update_time ,"
+3262,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3263,"null as check_flag  ,"
+3264,null as check_comm
+3265,from his_bi.dwd_inp_medical_d t1
+3266,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3267,where
+3268,"left(t1.st_date,6) = c_monthlist.month_id"
+3269,and t1.key = 'D00202'
+3270,"group by left(t1.st_date,6);"
+3271,---广泛全子宫切除术术后非预期重返手术室例数
+3272,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021206';
+3273,insert into his_bi.level_master_m
+3274,select
+3275,"left(t1.st_date,6) as month_id,"
+3276,"'LV00702021206' as level_code ,"
+3277,"count(distinct t1.pai_visit_id)   as level_value,"
+3278,"now() as update_time ,"
+3279,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3280,"null as check_flag  ,"
+3281,null as check_comm
+3282,from his_bi.dwd_inp_medical_d t1
+3283,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3284,where
+3285,"left(t1.st_date,6) = c_monthlist.month_id"
+3286,and t1.key = 'D00203'
+3287,"group by left(t1.st_date,6);"
+3288,---乳腺癌根治术术后非预期重返手术室例数
+3289,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702021306';
+3290,insert into his_bi.level_master_m
+3291,select
+3292,"left(t1.st_date,6) as month_id,"
+3293,"'LV00702021306' as level_code ,"
+3294,"count(distinct t1.pai_visit_id)   as level_value,"
+3295,"now() as update_time ,"
+3296,"count(distinct t1.pai_visit_id)   as self_value  ,"
+3297,"null as check_flag  ,"
+3298,null as check_comm
+3299,from his_bi.dwd_inp_medical_d t1
+3300,"inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id = t2.pai_visit_id and t2.key in ('D05024','D5025')"
+3301,where
+3302,"left(t1.st_date,6) = c_monthlist.month_id"
+3303,and t1.key = 'D00204'
+3304,"group by left(t1.st_date,6);"
+3305,---手术并发症出院人数
+3306,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010403';
+3307,insert into his_bi.level_master_m
+3308,select
+3309,"left(t1.st_date,6) as month_id,"
+3310,"'LV00702021302' as level_code ,"
+3311,"count(  t1.pai_visit_id)  as level_value,"
+3312,"now() as update_time ,"
+3313,"count(  t1.pai_visit_id)  as self_value  ,"
+3314,"null as check_flag  ,"
+3315,null as check_comm
+3316,from his_bi.dwd_inp_medical_d t1
+3317,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3318,where
+3319,t1.key = 'D00048'
+3320,"and left(t1.st_date,6)=c_monthlist.month_id"
+3321,--and t2.lyfs = '5'
+3322,"group by left(t1.st_date,6);"
+3323,---手术并发症导致死亡人数
+3324,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040302';
+3325,insert into his_bi.level_master_m
+3326,select
+3327,"left(t1.st_date,6) as month_id,"
+3328,"'LV00702040302' as level_code ,"
+3329,"count(  t1.pai_visit_id)  as level_value,"
+3330,"now() as update_time ,"
+3331,"count(  t1.pai_visit_id)  as self_value  ,"
+3332,"null as check_flag  ,"
+3333,null as check_comm
+3334,from his_bi.dwd_inp_medical_d t1
+3335,inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3336,where
+3337,t1.key = 'D00044'
+3338,"and left(t1.st_date,6)=c_monthlist.month_id"
+3339,and t2.lyfs = '5'
+3340,"group by left(t1.st_date,6);"
+3341,---手术后伤口裂开、感染人数
+3342,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040303';
+3343,insert into his_bi.level_master_m
+3344,select
+3345,"left(t1.st_date,6) as month_id,"
+3346,"'LV00702040303' as level_code ,"
+3347,"count(  distinct t1.pai_visit_id)  as level_value,"
+3348,"now() as update_time ,"
+3349,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3350,"null as check_flag  ,"
+3351,null as check_comm
+3352,from his_bi.dwd_inp_medical_d t1
+3353,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3354,where
+3355,t1.key = 'D00226'
+3356,"and left(t1.st_date,6)=c_monthlist.month_id"
+3357,--and t2.lyfs = '5'
+3358,"group by left(t1.st_date,6);"
+3359,---手术后出血或血肿人数
+3360,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040307';
+3361,insert into his_bi.level_master_m
+3362,select
+3363,"left(t1.st_date,6) as month_id,"
+3364,"'LV00702040307' as level_code ,"
+3365,"count(  distinct t1.pai_visit_id)  as level_value,"
+3366,"now() as update_time ,"
+3367,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3368,"null as check_flag  ,"
+3369,null as check_comm
+3370,from his_bi.dwd_inp_medical_d t1
+3371,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3372,where
+3373,t1.key = 'D00227'
+3374,"and left(t1.st_date,6)=c_monthlist.month_id"
+3375,--and t2.lyfs = '5'
+3376,"group by left(t1.st_date,6);"
+3377,---手术后呼吸衰竭人数
+3378,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040309';
+3379,insert into his_bi.level_master_m
+3380,select
+3381,"left(t1.st_date,6) as month_id,"
+3382,"'LV00702040309' as level_code ,"
+3383,"count(  distinct t1.pai_visit_id)  as level_value,"
+3384,"now() as update_time ,"
+3385,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3386,"null as check_flag  ,"
+3387,null as check_comm
+3388,from his_bi.dwd_inp_medical_d t1
+3389,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3390,where
+3391,t1.key = 'D00229'
+3392,"and left(t1.st_date,6)=c_monthlist.month_id"
+3393,--and t2.lyfs = '5'
+3394,"group by left(t1.st_date,6);"
+3395,---新陈代谢紊乱例数
+3396,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040314';
+3397,insert into his_bi.level_master_m
+3398,select
+3399,"left(t1.st_date,6) as month_id,"
+3400,"'LV00702040314' as level_code ,"
+3401,"count(  distinct t1.pai_visit_id)  as level_value,"
+3402,"now() as update_time ,"
+3403,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3404,"null as check_flag  ,"
+3405,null as check_comm
+3406,from his_bi.dwd_inp_medical_d t1
+3407,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3408,where
+3409,t1.key = 'D00228'
+3410,"and left(t1.st_date,6)=c_monthlist.month_id"
+3411,--and t2.lyfs = '5'
+3412,"group by left(t1.st_date,6);"
+3413,---新生儿产伤
+3414,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040401';
+3415,insert into his_bi.level_master_m
+3416,select
+3417,"left(t1.st_date,6) as month_id,"
+3418,"'LV00702040401' as level_code ,"
+3419,"count(  distinct t1.pai_visit_id)  as level_value,"
+3420,"now() as update_time ,"
+3421,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3422,"null as check_flag  ,"
+3423,null as check_comm
+3424,from his_bi.dwd_inp_medical_d t1
+3425,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3426,where
+3427,t1.key = 'D00231'
+3428,"and left(t1.st_date,6)=c_monthlist.month_id"
+3429,--and t2.lyfs = '5'
+3430,"group by left(t1.st_date,6);"
+3431,---新生儿产伤占活产婴儿数比例（%）
+3432,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040402';
+3433,insert into his_bi.level_master_m
+3434,select
+3435,"left(t1.st_date,6) as month_id,"
+3436,"'LV00702040402' as level_code ,"
+3437,"round((count(t1.pai_visit_id)*1.00 / t2.value)*100,4) as level_value,"
+3438,"now() as update_time ,"
+3439,"round((count(t1.pai_visit_id)*1.00 / t2.value)*100,4)  as self_value  ,"
+3440,"null as check_flag  ,"
+3441,null as check_comm
+3442,from his_bi.dwd_inp_medical_d t1
+3443,left join (
+3444,    select
+3445,"left(st_date,6) as month_id,"
+3446,count(1) as value
+3447,from his_bi.dwd_inp_quantity_d
+3448,where
+3449,key = 'D00157'
+3450,and value = '1'
+3451,"group by left(st_date,6)"
+3452,"    )t2 on left(t1.st_date,6) = t2.month_id"
+3453,where
+3454,"left(t1.st_date,6) = c_monthlist.month_id"
+3455,and t1.key = 'D00231'
+3456,"group by left(t1.st_date,6),t2.value;"
+3457,---非器械辅助阴道分娩产伤占阴道分娩人数比例（%）
+3458,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040404';
+3459,insert into his_bi.level_master_m
+3460,select
+3461,"left(t1.st_date,6) as month_id,"
+3462,"'LV00702040404' as level_code ,"
+3463,"round((count(t1.pai_visit_id)*1.00 / t2.value)*100,4) as level_value,"
+3464,"now() as update_time ,"
+3465,"round((count(t1.pai_visit_id)*1.00 / t2.value)*100,4)  as self_value  ,"
+3466,"null as check_flag  ,"
+3467,null as check_comm
+3468,from his_bi.dwd_inp_medical_d t1
+3469,left join (
+3470,    select
+3471,"left(st_date,6) as month_id,"
+3472,count(1) as value
+3473,from his_bi.dwd_inp_quantity_d
+3474,where
+3475,key = 'D00161'
+3476,"and value not in('1','2')"
+3477,"group by left(st_date,6)"
+3478,"    )t2 on left(t1.st_date,6) = t2.month_id"
+3479,where
+3480,"left(t1.st_date,6) = c_monthlist.month_id"
+3481,and t1.key = 'D00042'
+3482,"group by left(t1.st_date,6),t2.value;"
+3483,---器械辅助阴道分娩产伤占阴道分娩人数比例（%）
+3484,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040406';
+3485,insert into his_bi.level_master_m
+3486,select
+3487,"left(t1.st_date,6) as month_id,"
+3488,"'LV00702040406' as level_code ,"
+3489,"round((count(t1.pai_visit_id)*1.00 / t2.value)*100,4) as level_value,"
+3490,"now() as update_time ,"
+3491,"round((count(t1.pai_visit_id)*1.00 / t2.value)*100,4)  as self_value  ,"
+3492,"null as check_flag  ,"
+3493,null as check_comm
+3494,from his_bi.dwd_inp_medical_d t1
+3495,left join (
+3496,    select
+3497,"left(st_date,6) as month_id,"
+3498,count(1) as value
+3499,from his_bi.dwd_inp_quantity_d
+3500,where
+3501,key = 'D00161'
+3502,"and value not in('1','2')"
+3503,"group by left(st_date,6)"
+3504,"    )t2 on left(t1.st_date,6) = t2.month_id"
+3505,where
+3506,"left(t1.st_date,6) = c_monthlist.month_id"
+3507,and t1.key = 'D00233'
+3508,"group by left(t1.st_date,6),t2.value;"
+3509,---非器械辅助阴道分娩产伤人数
+3510,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040403';
+3511,insert into his_bi.level_master_m
+3512,select
+3513,"left(t1.st_date,6) as month_id,"
+3514,"'LV00702040403' as level_code ,"
+3515,"count(  distinct t1.pai_visit_id)  as level_value,"
+3516,"now() as update_time ,"
+3517,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3518,"null as check_flag  ,"
+3519,null as check_comm
+3520,from his_bi.dwd_inp_medical_d t1
+3521,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3522,where
+3523,t1.key = 'D00042'
+3524,"and left(t1.st_date,6)=c_monthlist.month_id"
+3525,--and t2.lyfs = '5'
+3526,"group by left(t1.st_date,6);"
+3527,---器械辅助阴道分娩产伤人数
+3528,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040405';
+3529,insert into his_bi.level_master_m
+3530,select
+3531,"left(t1.st_date,6) as month_id,"
+3532,"'LV00702040405' as level_code ,"
+3533,"count(  distinct t1.pai_visit_id)  as level_value,"
+3534,"now() as update_time ,"
+3535,"count( distinct t1.pai_visit_id)  as self_value  ,"
+3536,"null as check_flag  ,"
+3537,null as check_comm
+3538,from his_bi.dwd_inp_medical_d t1
+3539,--inner join his_bi.dw_inp_patient_info_m t2 on t1.pai_visit_id = t2.pai_visit_id
+3540,where
+3541,t1.key = 'D00233'
+3542,"and left(t1.st_date,6)=c_monthlist.month_id"
+3543,--and t2.lyfs = '5'
+3544,"group by left(t1.st_date,6);"
+3545,---手术后伤口裂开、感染占手术人数比例（%）
+3546,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040304';
+3547,insert into his_bi.level_master_m
+3548,select
+3549,"left(t1.st_date,6) as month_id,"
+3550,"'LV00702040304' as level_code ,"
+3551,"round(count(  distinct t1.pai_visit_id)*1.00/count(distinct t2.pai_visit_id)*100,4)  as level_value,"
+3552,"now() as update_time ,"
+3553,"round(count(  distinct t1.pai_visit_id)*1.00/count(distinct t2.pai_visit_id)*100,4)  as self_value  ,"
+3554,"null as check_flag  ,"
+3555,null as check_comm
+3556,from his_bi.dwd_inp_medical_d t1
+3557,"inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3558,where
+3559,t1.key = 'D00226'
+3560,"and left(t1.st_date,6)=c_monthlist.month_id"
+3561,--and t2.lyfs = '5'
+3562,"group by left(t1.st_date,6);"
+3563,---手术后出血或血肿占手术人数比例（%）
+3564,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040307';
+3565,insert into his_bi.level_master_m
+3566,select
+3567,"left(t1.st_date,6) as month_id,"
+3568,"'LV00702040307' as level_code ,"
+3569,"round(count(  distinct t1.pai_visit_id)*1.00/count(distinct t2.pai_visit_id)*100,4)  as level_value,"
+3570,"now() as update_time ,"
+3571,"round(count(  distinct t1.pai_visit_id)*1.00/count(distinct t2.pai_visit_id)*100,4)  as self_value  ,"
+3572,"null as check_flag  ,"
+3573,null as check_comm
+3574,from his_bi.dwd_inp_medical_d t1
+3575,"inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3576,where
+3577,t1.key = 'D00227'
+3578,"and left(t1.st_date,6)=c_monthlist.month_id"
+3579,--and t2.lyfs = '5'
+3580,"group by left(t1.st_date,6);"
+3581,---手术后呼吸衰竭占手术人数比例（%）
+3582,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040307';
+3583,insert into his_bi.level_master_m
+3584,select
+3585,"left(t1.st_date,6) as month_id,"
+3586,"'LV00702040307' as level_code ,"
+3587,"round(count(  distinct t1.pai_visit_id)*1.00/count(distinct t2.pai_visit_id)*100,4)  as level_value,"
+3588,"now() as update_time ,"
+3589,"round(count(  distinct t1.pai_visit_id)*1.00/count(distinct t2.pai_visit_id)*100,4)  as self_value  ,"
+3590,"null as check_flag  ,"
+3591,null as check_comm
+3592,from his_bi.dwd_inp_medical_d t1
+3593,"inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3594,where
+3595,t1.key = 'D00229'
+3596,"and left(t1.st_date,6)=c_monthlist.month_id"
+3597,--and t2.lyfs = '5'
+3598,"group by left(t1.st_date,6);"
+3599,---重度卵巢过度刺激综合症例数
+3600,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040607';
+3601,insert into his_bi.level_master_m
+3602,select
+3603,"left(t1.st_date,6) as month_id,"
+3604,"'LV00702040607' as level_code ,"
+3605,"count(  distinct t1.pai_visit_id) as level_value,"
+3606,"now() as update_time ,"
+3607,"count(  distinct t1.pai_visit_id) as self_value  ,"
+3608,"null as check_flag  ,"
+3609,null as check_comm
+3610,from his_bi.dwd_inp_medical_d t1
+3611,"--inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3612,where
+3613,t1.key = 'D00121'
+3614,"and left(t1.st_date,6)=c_monthlist.month_id"
+3615,--and t2.lyfs = '5'
+3616,"group by left(t1.st_date,6);"
+3617,---多胎妊娠（非自然）例数
+3618,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV00702040608';
+3619,insert into his_bi.level_master_m
+3620,select
+3621,"left(t1.st_date,6) as month_id,"
+3622,"'LV00702040608' as level_code ,"
+3623,"count(  distinct t1.pai_visit_id) as level_value,"
+3624,"now() as update_time ,"
+3625,"count(  distinct t1.pai_visit_id) as self_value  ,"
+3626,"null as check_flag  ,"
+3627,null as check_comm
+3628,from his_bi.dwd_inp_medical_d t1
+3629,"--inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3630,where
+3631,t1.key = 'D00107'
+3632,"and left(t1.st_date,6)=c_monthlist.month_id"
+3633,--and t2.lyfs = '5'
+3634,"group by left(t1.st_date,6);"
+3635,---每门诊人次费用（元）
+3636,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010501';
+3637,insert into his_bi.level_master_m
+3638,select
+3639,"t1.month_id as month_id,"
+3640,"'LV007010501' as level_code ,"
+3641,"COALESCE(COALESCE(t1.kpi_value,0),0)  as level_value,"
+3642,"now() as update_time ,"
+3643,"COALESCE(COALESCE(t1.kpi_value,0),0)   as self_value  ,"
+3644,"null as check_flag  ,"
+3645,null as check_comm
+3646,from his_bi.kpi_master_m t1
+3647,where
+3648,t1.month_id=c_monthlist.month_id
+3649,and t1.kpi_code='JX03801';
+3650,---每门诊人次药费（元）
+3651,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010502';
+3652,insert into his_bi.level_master_m
+3653,select
+3654,"t1.month_id as month_id,"
+3655,"'LV007010502' as level_code ,"
+3656,"COALESCE(COALESCE(t1.kpi_value,0),0)  as level_value,"
+3657,"now() as update_time ,"
+3658,"COALESCE(COALESCE(t1.kpi_value,0),0)   as self_value  ,"
+3659,"null as check_flag  ,"
+3660,null as check_comm
+3661,from his_bi.kpi_master_m t1
+3662,where
+3663,t1.month_id=c_monthlist.month_id
+3664,and t1.kpi_code='JX03901';
+3665,---每住院费用（元）
+3666,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010503';
+3667,insert into his_bi.level_master_m
+3668,select
+3669,"    am.month_id as month_id,"
+3670,"    'LV007010503' as level_code,"
+3671,"    round(sum(am.total_fees)/count(distinct am.pai_visit_id),5) as level_value,"
+3672,"    now() as update_time,"
+3673,"    round(sum(am.total_fees)/count(distinct am.pai_visit_id),5) as self_value,"
+3674,"    null as check_flag,"
+3675,    null as check_comm
+3676,    from his_bi.dw_inp_patient_amount_m am
+3677,    where 1=1
+3678,    and am.month_id = c_monthlist.month_id
+3679,    group by am.month_id;
+3680,---每住院药费（元）
+3681,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010504';
+3682,insert into his_bi.level_master_m
+3683,select
+3684,"t1.month_id as month_id,"
+3685,"'LV007010504' as level_code ,"
+3686,"COALESCE(COALESCE(t1.kpi_value,0),0)  as level_value,"
+3687,"now() as update_time ,"
+3688,"COALESCE(COALESCE(t1.kpi_value,0),0)   as self_value  ,"
+3689,"null as check_flag  ,"
+3690,null as check_comm
+3691,from his_bi.kpi_master_m t1
+3692,where
+3693,t1.month_id=c_monthlist.month_id
+3694,and t1.kpi_code='JX04101';
+3695,---抗菌药处方数
+3696,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070501';
+3697,insert into his_bi.level_master_m
+3698,select
+3699,"left(t1.st_date,6) as month_id,"
+3700,"'LV0070501' as level_code ,"
+3701,"count(   t1.outp_visit_id) as level_value,"
+3702,"now() as update_time ,"
+3703,"count(   t1.outp_visit_id) as self_value  ,"
+3704,"null as check_flag  ,"
+3705,null as check_comm
+3706,from his_bi.DWD_OUTP_QUANTITY_D t1
+3707,"--inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3708,where
+3709,t1.key = 'D00036'
+3710,"and left(t1.st_date,6)=c_monthlist.month_id"
+3711,--and t2.lyfs = '5'
+3712,"group by left(t1.st_date,6);"
+3713,---门诊处方数
+3714,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070502';
+3715,insert into his_bi.level_master_m
+3716,select
+3717,"left(t1.st_date,6) as month_id,"
+3718,"'LV0070502' as level_code ,"
+3719,"count(   t1.outp_visit_id) as level_value,"
+3720,"now() as update_time ,"
+3721,"count(   t1.outp_visit_id) as self_value  ,"
+3722,"null as check_flag  ,"
+3723,null as check_comm
+3724,from his_bi.DWD_OUTP_QUANTITY_D t1
+3725,"--inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3726,where
+3727,t1.key = 'D00035'
+3728,"and left(t1.st_date,6)=c_monthlist.month_id"
+3729,--and t2.lyfs = '5'
+3730,"group by left(t1.st_date,6);"
+3731,---注射剂处方数
+3732,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070504';
+3733,insert into his_bi.level_master_m
+3734,select
+3735,"left(t1.st_date,6) as month_id,"
+3736,"'LV0070504' as level_code ,"
+3737,"count(   t1.outp_visit_id) as level_value,"
+3738,"now() as update_time ,"
+3739,"count(   t1.outp_visit_id) as self_value  ,"
+3740,"null as check_flag  ,"
+3741,null as check_comm
+3742,from his_bi.DWD_OUTP_QUANTITY_D t1
+3743,"--inner join his_bi.dwd_inp_medical_d t2 on left(t1.st_date,6) = left(t2.st_date,6) and t2.key='D00048'"
+3744,where
+3745,t1.key = 'D00037'
+3746,"and left(t1.st_date,6)=c_monthlist.month_id"
+3747,--and t2.lyfs = '5'
+3748,"group by left(t1.st_date,6);"
+3749,---医疗总收入
+3750,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070507';
+3751,insert into his_bi.level_master_m
+3752,select
+3753,"t1.month_id as month_id,"
+3754,"'LV0070507' as level_code ,"
+3755,"round(sum(COALESCE(COALESCE(t1.kpi_value,0),0))/10000,5)  as level_value,"
+3756,"now() as update_time ,"
+3757,"round(sum(COALESCE(COALESCE(t1.kpi_value,0),0))/10000,5) as self_value  ,"
+3758,"null as check_flag  ,"
+3759,null as check_comm
+3760,from his_bi.kpi_master_m t1
+3761,where
+3762,t1.month_id=c_monthlist.month_id
+3763,"and t1.kpi_code in('JX02701','JX02901')"
+3764,group by t1.month_id;
+3765,---药费收入
+3766,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070506';
+3767,insert into his_bi.level_master_m
+3768,select
+3769,"t1.month_id as month_id,"
+3770,"'LV0070506' as level_code ,"
+3771,"round(sum(COALESCE(COALESCE(t1.kpi_value,0),0))/10000,5)  as level_value,"
+3772,"now() as update_time ,"
+3773,"round(sum(COALESCE(COALESCE(t1.kpi_value,0),0))/10000,5)  as self_value  ,"
+3774,"null as check_flag  ,"
+3775,null as check_comm
+3776,from his_bi.kpi_master_m t1
+3777,where
+3778,t1.month_id=c_monthlist.month_id
+3779,"and t1.kpi_code in('JX03902','JX04102')"
+3780,group by t1.month_id;
+3781,---抗菌药物金额（万元）
+3782,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070509';
+3783,insert into his_bi.level_master_m
+3784,select
+3785,"t1.month_id,"
+3786,"'LV0070509' as level_code ,"
+3787,"round(sum(t1.value+t2.value)/10000,5) as level_value,"
+3788,"now() as update_time ,"
+3789,"round(sum(t1.value+t2.value)/10000,5) as self_value  ,"
+3790,"null as check_flag  ,"
+3791,null as check_comm
+3792,from
+3793,(select
+3794,"left(st_date,6) as month_id,"
+3795,sum(value) as value
+3796,from his_bi.DWD_OUTP_INCOME_D
+3797,where key = 'D00025'
+3798,"group by left(st_date,6))t1 left join"
+3799,(select
+3800,"left(st_date,6) as month_id,"
+3801,sum(value) as value
+3802,from his_bi.dwd_inp_income_d
+3803,where key = 'D05011'
+3804,"group by left(st_date,6)) t2 on t1.month_id = t2.month_id"
+3805,where
+3806,t1.month_id=c_monthlist.month_id
+3807,group by t1.month_id;
+3808,---抗菌药物使用强度
+3809,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070514';
+3810,insert into his_bi.level_master_m
+3811,select
+3812,"t1.month_id as month_id,"
+3813,"'LV0070514' as level_code ,"
+3814,"COALESCE(COALESCE(t1.kpi_value,0),0) as level_value,"
+3815,"now() as update_time ,"
+3816,"COALESCE(COALESCE(t1.kpi_value,0),0) as self_value  ,"
+3817,"null as check_flag  ,"
+3818,null as check_comm
+3819,from his_bi.kpi_master_m t1
+3820,where
+3821,t1.month_id=c_monthlist.month_id
+3822,and t1.kpi_code='JX017';
+3823,---门诊抗菌药物使用率
+3824,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070515';
+3825,insert into his_bi.level_master_m
+3826,select
+3827,"t1.month_id as month_id,"
+3828,"'LV0070515' as level_code ,"
+3829,"round((count(case when t1.kjyw_cf_num >0 then 1 end)*1.0/count(distinct t1.outp_visit_id))*100,4) as level_value,"
+3830,"now() as update_time ,"
+3831,"round((count(case when t1.kjyw_cf_num >0 then 1 end)*1.0/count(distinct t1.outp_visit_id))*100,4) as self_value  ,"
+3832,"null as check_flag  ,"
+3833,null as check_comm
+3834,from
+3835,his_bi.dw_outp_patient_info_m t1
+3836,where
+3837,"COALESCE(is_tj,0)=0"
+3838,and t1.month_id=c_monthlist.month_id
+3839,GROUP BY
+3840,t1.month_id;
+3841,---急诊患者抗菌药物使用率
+3842,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070516';
+3843,insert into his_bi.level_master_m
+3844,select
+3845,"t1.month_id as month_id,"
+3846,"'LV0070516' as level_code ,"
+3847,"round((count(case when t1.kjyw_cf_num >0 then 1 end)*1.0/count(distinct t1.outp_visit_id))*100,4) as level_value,"
+3848,"now() as update_time ,"
+3849,"round((count(case when t1.kjyw_cf_num >0 then 1 end)*1.0/count(distinct t1.outp_visit_id))*100,4) as self_value  ,"
+3850,"null as check_flag  ,"
+3851,null as check_comm
+3852,from
+3853,his_bi.dw_outp_patient_info_m t1
+3854,where
+3855,"COALESCE(is_tj,0)=0"
+3856,and t1.month_id=c_monthlist.month_id
+3857,and is_emergency = 1
+3858,GROUP BY
+3859,t1.month_id;
+3860,---住院患者使用抗菌药使用率
+3861,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070517';
+3862,insert into his_bi.level_master_m
+3863,select
+3864,"t1.month_id as month_id,"
+3865,"'LV0070517' as level_code ,"
+3866,"round((count(case when t1.is_use_sykjyw >0 then 1 end)*1.0/count(distinct t1.pai_visit_id))*100,4) as level_value,"
+3867,"now() as update_time ,"
+3868,"round((count(case when t1.is_use_sykjyw >0 then 1 end)*1.0/count(distinct t1.pai_visit_id))*100,4) as self_value  ,"
+3869,"null as check_flag  ,"
+3870,null as check_comm
+3871,from
+3872,his_bi.dw_inp_patient_info_m t1
+3873,where
+3874,t1.month_id=c_monthlist.month_id
+3875,GROUP BY
+3876,t1.month_id;
+3877,---药费收入占医疗总收入比重（%）
+3878,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070508';
+3879,insert into his_bi.level_master_m
+3880,select
+3881,"t1.month_id,"
+3882,"'LV0070508' as kpi_code,"
+3883,"round(COALESCE(max(t2.level_value),0)/max(t1.level_value),5)*100 as kpi_value,"
+3884,"now() as update_time,"
+3885,"round(COALESCE(max(t2.level_value),0)/max(t1.level_value),5)*100 as self_value,"
+3886,"null as check_flag,"
+3887,null as check_comm
+3888,from
+3889,his_bi.level_master_m t1
+3890,left join his_bi.level_master_m t2 on t1.level_code = t2.level_code and t1.month_id = t2.month_id
+3891,and t2.level_code='LV0070506'
+3892,where
+3893,t1.month_id=c_monthlist.month_id
+3894,"and t1.level_code in('LV0070506','LV0070507')"
+3895,group by
+3896,t1.month_id;
+3897,----留观人次
+3898,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010203';
+3899,insert into his_bi.level_master_m
+3900,select
+3901,"t1.month_id,"
+3902,"'LV007010203' as level_code ,"
+3903,"count(1) as level_value,"
+3904,"now() as update_time ,"
+3905,"count(1) as self_value  ,"
+3906,"null as check_flag  ,"
+3907,null as check_comm
+3908,from his_bi.dw_outp_patient_info_m t1
+3909,where
+3910,t1.month_id=c_monthlist.month_id and
+3911,t1.is_keep = '1'
+3912,group by month_id;
+3913,----抗菌药处方数/每百张门诊处方(%)
+3914,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070503';
+3915,insert into his_bi.level_master_m
+3916,select
+3917,"t1.month_id,"
+3918,"'LV0070503' as kpi_code,"
+3919,"round(COALESCE(max(t2.level_value),0)/max(t1.level_value),5)*100 as kpi_value,"
+3920,"now() as update_time,"
+3921,"round(COALESCE(max(t2.level_value),0)/max(t1.level_value),5)*100 as self_value,"
+3922,"null as check_flag,"
+3923,null as check_comm
+3924,from
+3925,his_bi.level_master_m t1
+3926,left join his_bi.level_master_m t2 on t1.level_code = t2.level_code and t1.month_id = t2.month_id
+3927,and t2.level_code='LV0070501'
+3928,where
+3929,t1.month_id=c_monthlist.month_id
+3930,"and t1.level_code in('LV0070501','LV0070502')"
+3931,group by
+3932,t1.month_id;
+3933,----注射剂处方数/每百张门诊处方(%)
+3934,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV0070505';
+3935,insert into his_bi.level_master_m
+3936,select
+3937,"t1.month_id,"
+3938,"'LV0070505' as kpi_code,"
+3939,"round(COALESCE(max(t2.level_value),0)/max(t1.level_value),5)*100 as kpi_value,"
+3940,"now() as update_time,"
+3941,"round(COALESCE(max(t2.level_value),0)/max(t1.level_value),5)*100 as self_value,"
+3942,"null as check_flag,"
+3943,null as check_comm
+3944,from
+3945,his_bi.level_master_m t1
+3946,left join his_bi.level_master_m t2 on t1.level_code = t2.level_code and t1.month_id = t2.month_id
+3947,and t2.level_code='LV0070504'
+3948,where
+3949,t1.month_id=c_monthlist.month_id
+3950,"and t1.level_code in('LV0070504','LV0070502')"
+3951,group by
+3952,t1.month_id;
+3953,----床位周转次数
+3954,delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010404';
+3955,insert into his_bi.level_master_m
+3956,select
+3957,"replace(left(stat_date::text,7),'-','') as month_id,"
+3958,"'LV007010404' as level_code ,"
+3959,"round(((sum(actual_f_num)+sum(to_dept_num))/sum(sy_num))*100,4) as level_value,"
+3960,"now() as update_time ,"
+3961,"round(((sum(actual_f_num)+sum(to_dept_num))/sum(sy_num))*100,4) as self_value  ,"
+3962,"null as check_flag  ,"
+3963,null as check_comm
+3964,from his_bi.dw_inp_dept_work_d t1
+3965,where
+3966,"replace(left(stat_date::text,7),'-','')=c_monthlist.month_id"
+3967,"group by replace(left(stat_date::text,7),'-','');"
