@@ -1,0 +1,3097 @@
+
+    ---产后出血总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070101';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070101' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010101';
+    
+    ---产后出血死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070102';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070102' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010102';
+    
+    ---产后出血平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070104';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070104' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010103';
+    
+    ---产后出血平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070105';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070105' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010104';
+    
+    ---产后出血15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070107';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070107' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010106';
+    
+    ---产后出血31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070108';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070108' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010107';
+    
+    ---妊娠合并糖尿病总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070201';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070201' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010201';
+    
+    ---妊娠合并糖尿病死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070202';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070202' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010202';
+    
+    ---妊娠合并糖尿病平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070204';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070204' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010203';
+    
+    ---妊娠合并糖尿病平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070205';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070205' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010204';
+    
+    ---妊娠合并糖尿病15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070207';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070207' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010206';
+    
+    ---妊娠合并糖尿病31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070208';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070208' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010207';
+    
+    ---盆腔炎性疾病总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070301';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070301' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010301';
+    
+    ---盆腔炎性疾病死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070302';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070302' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010302';
+    
+    ---盆腔炎性疾病平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070304';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070304' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010303';
+    
+    ---盆腔炎性疾病平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070305';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070305' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010304';
+    
+    ---盆腔炎性疾病15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070307';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070307' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010306';
+    
+    ---盆腔炎性疾病31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070308';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070308' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010307';
+    
+    ---异位妊娠总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070401';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070401' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010401';
+    
+    ---异位妊娠死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070402';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070402' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010402';
+    
+    ---异位妊娠平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070404';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070404' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010403';
+    
+    ---异位妊娠平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070405';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070405' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010404';
+    
+    ---异位妊娠15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070407';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070407' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010406';
+    
+    ---异位妊娠31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070408';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070408' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010407';
+    
+    ---女性生殖器脱垂总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070501';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070501' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010501';
+    
+    ---女性生殖器脱垂死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070502';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070502' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010502';
+    
+    ---女性生殖器脱垂平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070504';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070504' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010503';
+    
+    ---女性生殖器脱垂平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070505';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070505' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010504';
+    
+    ---女性生殖器脱垂15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070507';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070507' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010506';
+    
+    ---女性生殖器脱垂31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070508';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070508' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010507';
+    
+    ---直肠阴道隔子宫内膜异位症总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070601';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070601' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010601';
+    
+    ---直肠阴道隔子宫内膜异位症死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070602';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070602' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010602';
+    
+    ---直肠阴道隔子宫内膜异位症平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070604';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070604' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010603';
+    
+    ---直肠阴道隔子宫内膜异位症平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070605';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070605' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010604';
+    
+    ---直肠阴道隔子宫内膜异位症15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070607';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070607' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010606';
+    
+    ---直肠阴道隔子宫内膜异位症31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070608';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070608' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010607';
+    
+    ---妊娠滋养细胞疾病总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070701';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070701' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010701';
+    
+    ---妊娠滋养细胞疾病死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070702';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070702' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010702';
+    
+    ---妊娠滋养细胞疾病平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070704';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070704' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010703';
+    
+    ---妊娠滋养细胞疾病平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070705';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070705' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010704';
+    
+    ---妊娠滋养细胞疾病15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070707';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070707' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010706';
+    
+    ---妊娠滋养细胞疾病31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070708';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070708' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010707';
+    
+    ---重度卵巢过度刺激综合征总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070801';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070801' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010801';
+    
+    ---重度卵巢过度刺激综合征死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070802';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070802' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010802';
+    
+    ---重度卵巢过度刺激综合征平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070804';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070804' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010803';
+    
+    ---重度卵巢过度刺激综合征平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070805';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070805' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010804';
+    
+    ---重度卵巢过度刺激综合征15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070807';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070807' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010806';
+    
+    ---重度卵巢过度刺激综合征31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070808';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070808' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010807';
+    
+    ---重度子痫前期总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070901';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070901' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010901';
+    
+    ---重度子痫前期死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070902';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070902' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010902';
+    
+    ---重度子痫前期平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070904';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070904' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010903';
+    
+    ---重度子痫前期平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070905';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070905' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010904';
+    
+    ---重度子痫前期15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070907';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070907' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010906';
+    
+    ---重度子痫前期31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002070908';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002070908' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702010907';
+    
+    ---早产总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071001';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071001' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011001';
+    
+    ---早产死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071002';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071002' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011002';
+    
+    ---早产平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071004';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071004' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011003';
+    
+    ---早产平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071005';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071005' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011004';
+    
+    ---早产15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071007';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071007' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011006';
+    
+    ---早产31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071008';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071008' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011007';
+    
+    ---多胎妊娠总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071101';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071101' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011101';
+    
+    ---多胎妊娠死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071102';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071102' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011102';
+    
+    ---多胎妊娠平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071104';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071104' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011103';
+    
+    ---多胎妊娠平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071105';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071105' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011104';
+    
+    ---多胎妊娠15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071107';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071107' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011106';
+    
+    ---多胎妊娠31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071108';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071108' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011107';
+    
+    ---胎膜早破总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071201';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071201' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011201';
+    
+    ---胎膜早破死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071202';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071202' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011202';
+    
+    ---胎膜早破平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071204';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071204' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011203';
+    
+    ---胎膜早破平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071205';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071205' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011204';
+    
+    ---胎膜早破15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071207';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071207' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011206';
+    
+    ---胎膜早破31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071208';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071208' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011207';
+    
+    ---前置胎盘总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071301';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071301' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011301';
+    
+    ---前置胎盘死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071302';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071302' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011302';
+    
+    ---前置胎盘平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071304';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071304' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011303';
+    
+    ---前置胎盘平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071305';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071305' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011304';
+    
+    ---前置胎盘15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071307';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071307' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011306';
+    
+    ---前置胎盘31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071308';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071308' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011307';
+    
+    ---胎盘早剥总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071401';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071401' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011401';
+    
+    ---胎盘早剥死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071402';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071402' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011402';
+    
+    ---胎盘早剥平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071404';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071404' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011403';
+    
+    ---胎盘早剥平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071405';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071405' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011404';
+    
+    ---胎盘早剥15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071407';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071407' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011406';
+    
+    ---胎盘早剥31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071408';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071408' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011407';
+    
+    ---新生儿窒息总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071501';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071501' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011501';
+    
+    ---新生儿窒息死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071502';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071502' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011502';
+    
+    ---新生儿窒息平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071504';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071504' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011503';
+    
+    ---新生儿窒息平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071505';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071505' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011504';
+    
+    ---新生儿窒息15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071507';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071507' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011506';
+    
+    ---新生儿窒息31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071508';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071508' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011507';
+    
+    ---新生儿呼吸窘迫总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071601';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071601' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011601';
+    
+    ---新生儿呼吸窘迫死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071602';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071602' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011602';
+    
+    ---新生儿呼吸窘迫平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071604';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071604' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011603';
+    
+    ---新生儿呼吸窘迫平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071605';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071605' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011604';
+    
+    ---新生儿呼吸窘迫15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071607';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071607' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011606';
+    
+    ---新生儿呼吸窘迫31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071608';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071608' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011607';
+    
+    ---支气管肺炎总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071701';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071701' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011701';
+    
+    ---支气管肺炎死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071702';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071702' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011702';
+    
+    ---支气管肺炎平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071704';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071704' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011703';
+    
+    ---支气管肺炎平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071705';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071705' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011704';
+    
+    ---支气管肺炎15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071707';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071707' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011706';
+    
+    ---支气管肺炎31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071708';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071708' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011707';
+    
+    ---小儿腹泻病总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071801';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071801' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011801';
+    
+    ---小儿腹泻病死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071802';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071802' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011802';
+    
+    ---小儿腹泻病平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071804';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071804' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011803';
+    
+    ---小儿腹泻病平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071805';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071805' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011804';
+    
+    ---小儿腹泻病15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071807';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071807' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011806';
+    
+    ---小儿腹泻病31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071808';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071808' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011807';
+    
+    ---低出生体重儿总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071901';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071901' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011901';
+    
+    ---低出生体重儿死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071902';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071902' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011902';
+    
+    ---低出生体重儿平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071904';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071904' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011903';
+    
+    ---低出生体重儿平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071905';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071905' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011904';
+    
+    ---低出生体重儿15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071907';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071907' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011906';
+    
+    ---低出生体重儿31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002071908';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002071908' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702011907';
+    
+    ---新生儿高胆红素血症总例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072001';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002072001' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702012021';
+    
+    ---新生儿高胆红素血症死亡例数
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072002';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002072002' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702012022';
+    
+    ---新生儿高胆红素血症平均住院日
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072004';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002072004' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702012023';
+    
+    ---新生儿高胆红素血症平均住院费用
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072005';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002072005' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702012024';
+    
+    ---新生儿高胆红素血症15天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072007';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002072007' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702012026';
+    
+    ---新生儿高胆红素血症31天再住院率（包括计划内及非计划重返）
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072008';
+insert into his_bi.special_master_m
+select
+c_monthlist.month_id as month_id,
+'SP002072008' as special_code ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end as special_value,
+now() as update_time ,
+case when coalesce(t1.level_value,0)=0 then 0 else t1.level_value end  as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.level_master_m t1
+where
+t1.month_id=c_monthlist.month_id
+and t1.level_code='LV00702012027';
+        ---剖宫产病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080101';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080101' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01001';
+        
+        ---剖宫产平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080102';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080102' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100101';
+        
+        ---剖宫产出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080103';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080103' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100102';
+        
+        ---剖宫产次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080105';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080105' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100104';
+        
+        ---剖宫产总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080106';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080106' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100105';
+        
+        ---剖宫产死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080111';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080111' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100108';
+        
+        ---剖宫产病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080112';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080112' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100107';
+        
+        ---社区获得性肺炎(住院、儿童)病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080201';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080201' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01002';
+        
+        ---社区获得性肺炎(住院、儿童)平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080202';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080202' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100201';
+        
+        ---社区获得性肺炎(住院、儿童)出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080203';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080203' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100202';
+        
+        ---社区获得性肺炎(住院、儿童)次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080205';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080205' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100204';
+        
+        ---社区获得性肺炎(住院、儿童)总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080206';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080206' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100205';
+        
+        ---社区获得性肺炎(住院、儿童)死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080211';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080211' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100208';
+        
+        ---社区获得性肺炎(住院、儿童)病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080212';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080212' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100207';
+        
+        ---异位妊娠病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080301';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080301' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01003';
+        
+        ---异位妊娠平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080302';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080302' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100301';
+        
+        ---异位妊娠出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080303';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080303' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100302';
+        
+        ---异位妊娠次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080305';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080305' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100304';
+        
+        ---异位妊娠总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080306';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080306' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100305';
+        
+        ---异位妊娠死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080311';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080311' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100308';
+        
+        ---异位妊娠病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080312';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080312' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100307';
+        
+        ---宫颈癌病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080401';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080401' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01004';
+        
+        ---宫颈癌平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080402';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080402' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100401';
+        
+        ---宫颈癌出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080403';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080403' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100402';
+        
+        ---宫颈癌次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080405';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080405' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100404';
+        
+        ---宫颈癌总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080406';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080406' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100405';
+        
+        ---宫颈癌死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080411';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080411' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100408';
+        
+        ---宫颈癌病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080412';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080412' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100407';
+        
+        ---子宫肌瘤病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080501';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080501' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01005';
+        
+        ---子宫肌瘤平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080502';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080502' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100501';
+        
+        ---子宫肌瘤出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080503';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080503' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100502';
+        
+        ---子宫肌瘤次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080505';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080505' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100504';
+        
+        ---子宫肌瘤总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080506';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080506' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100505';
+        
+        ---子宫肌瘤死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080511';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080511' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100508';
+        
+        ---子宫肌瘤病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080512';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080512' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100507';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080601';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080601' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01006';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080602';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080602' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100601';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080603';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080603' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100602';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080605';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080605' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100604';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080606';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080606' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100605';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080611';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080611' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100608';
+        
+        ---艾滋病、梅毒和乙肝母婴传播疾病病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080612';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080612' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100607';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080701';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080701' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01007';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080702';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080702' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100701';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080703';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080703' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100702';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080705';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080705' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100704';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080706';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080706' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100705';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080711';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080711' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100708';
+        
+        ---新生儿呼吸窘迫综合征（NRDS）病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080712';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080712' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100707';
+        
+        ---儿童哮喘病种例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080801';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080801' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX01008';
+        
+        ---儿童哮喘平均住院日
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080802';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080802' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100801';
+        
+        ---儿童哮喘出院患者占用总床日数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080803';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080803' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100802';
+        
+        ---儿童哮喘次均费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080805';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080805' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100804';
+        
+        ---儿童哮喘总出院费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080806';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080806' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100805';
+        
+        ---儿童哮喘死亡人数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080811';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080811' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100808';
+        
+        ---儿童哮喘病死率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080812';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002080812' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX0100807';
+        
+        ---住院患者手术人次数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040102';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040102' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00401';
+        
+        ---出院患者手术占比
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040103';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040103' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX004';
+        
+        ---出院患者微创手术人次数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040104';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040104' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00501';
+        
+        ---出院患者微创手术占比
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040105';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040105' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX005';
+        
+        ---日间手术人次数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040106';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040106' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00301';
+        
+        ---择期手术人次数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040107';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040107' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00302';
+        
+        ---日间手术占择期手术比例
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040108';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040108' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX003';
+        
+        ---I类切口手术部位感染人次数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040306';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040306' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00901';
+        
+        ---I类切口手术人次数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040307';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040307' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00902';
+        
+        ---I类切口手术部位感染率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040308';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040308' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX009';
+        
+        ---手术患者并发症发生例数
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040312';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040312' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX00801';
+        
+        ---手术患者并发症发生率
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002040313';
+    insert into his_bi.special_master_m
+    select
+    c_monthlist.month_id as month_id,
+    'SP002040313' as special_code ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end as kpi_value,
+    now() as update_time ,
+    case when coalesce(t1.kpi_value,0)=0 then 0 else t1.kpi_value end  as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+    from his_bi.kpi_master_m t1
+    where
+    t1.month_id=c_monthlist.month_id
+    and t1.kpi_code='JX008';
+ 
+        ---新生儿呼吸窘迫综合征（NRDS）药品费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080707';
+    insert into his_bi.special_master_m
+select
+    left(t1.st_date,6) as month_id,
+    'SP002080707' as special_code ,
+    sum(t2.pham_fees) as special_value,
+    now() as update_time ,
+    sum(t2.pham_fees) as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+from his_bi.dwd_inp_medical_d t1
+         inner join his_bi.dw_inp_patient_amount_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+where
+        key = 'D00128'
+  and left(t1.st_date,6) = c_monthlist.month_id
+group by left(t1.st_date,6);
+        
+        ---新生儿呼吸窘迫综合征（NRDS）卫生材料费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080709';
+    insert into his_bi.special_master_m
+select
+    left(t1.st_date,6) as month_id,
+    'SP002080709' as special_code ,
+    sum(t2.material_fees) as special_value,
+    now() as update_time ,
+    sum(t2.material_fees) as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+from his_bi.dwd_inp_medical_d t1
+         inner join his_bi.dw_inp_patient_amount_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+where
+        key = 'D00128'
+  and left(t1.st_date,6) = c_monthlist.month_id
+group by left(t1.st_date,6);
+        
+        ---儿童哮喘材料费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080809';
+    insert into his_bi.special_master_m
+select
+    left(t1.st_date,6) as month_id,
+    'SP002080809' as special_code ,
+    sum(t2.material_fees) as special_value,
+    now() as update_time ,
+    sum(t2.material_fees) as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+from his_bi.DWD_INP_QUANTITY_D t1
+         inner join his_bi.dw_inp_patient_amount_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+where
+        key = 'D00225'
+  and left(t1.st_date,6) = c_monthlist.month_id
+group by left(t1.st_date,6);
+        
+        ---儿童哮喘药品费用
+    delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002080807';
+    insert into his_bi.special_master_m
+select
+    left(t1.st_date,6) as month_id,
+    'SP002080807' as special_code ,
+    sum(t2.pham_fees) as special_value,
+    now() as update_time ,
+    sum(t2.pham_fees) as self_value  ,
+    null as check_flag  ,
+    null as check_comm
+from his_bi.DWD_INP_QUANTITY_D t1
+         inner join his_bi.dw_inp_patient_amount_m t2 on t1.patient_id = t2.patient_id and t1.visit_id = t2.visit_id
+where
+        key = 'D00225'
+  and left(t1.st_date,6) = c_monthlist.month_id
+group by left(t1.st_date,6);
+        
+        ---新生儿高胆红素血症7天重返
+delete from his_bi.special_master_m where month_id = c_monthlist.month_id and special_code = 'SP002072006';
+insert into his_bi.special_master_m
+select
+    c_monthlist.month_id ,
+    'SP002072006' as special_code ,
+    coalesce(count(1),0) as special_value,
+    now() as update_time,
+    coalesce(count(1),0) as self_value,
+    null as check_flag  ,
+    null as check_comm
+from his_bi.DWD_INP_MEDICAL_D t1
+         inner join his_bi.dwd_inp_medical_d t2 on t1.pai_visit_id=t2.pai_visit_id and t2.key='D00126'
+where
+        t1.key = 'D05026'
+  and left(t1.st_date,6)=c_monthlist.month_id;
+        
