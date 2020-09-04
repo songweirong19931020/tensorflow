@@ -14,7 +14,7 @@
 import datetime
 import time
 
-today = today = datetime.date.today()
+today = datetime.date.today()
 
 
 def Get_Time_All(list_time=[]):
@@ -29,6 +29,22 @@ def Get_Time_All(list_time=[]):
         list_time.append(int(datetime.date.fromordinal(i).strftime("%Y%m%d")))
     date_list = list_time
     return date_list
+
+def Get_Time_Qj_30(list_time=[]):
+    a = (today - datetime.timedelta(days=30))
+    b = datetime.date.today()
+    for i in range(a.toordinal(), b.toordinal()):
+        # print(datetime.date.fromordinal(i))
+        list_time.append(datetime.date.fromordinal(i).strftime("%Y%m%d"))
+    return list_time
+
+def Get_Time_Qj_60_30(list_time=[]):
+    a = (today - datetime.timedelta(days=60))
+    b = (today - datetime.timedelta(days=30))
+    for i in range(a.toordinal(), b.toordinal()):
+        # print(datetime.date.fromordinal(i))
+        list_time.append(datetime.date.fromordinal(i).strftime("%Y%m%d"))
+    return list_time
 
 
 def Get_Month_All(month_time=[]):

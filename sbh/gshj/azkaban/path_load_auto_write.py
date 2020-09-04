@@ -184,7 +184,7 @@ for name_sql in os.listdir(r'C:\Users\CBH\Desktop\azkaban\正式环境job\newsql
 import re
 import os
 
-files = os.listdir(r'C:\Users\CBH\Desktop\azkaban\正式环境job\newjob')
+files = os.listdir(r'C:\Users\CBH\Desktop\azkaban\正式环境job\adddesc')
 
 def replaceStr(file):
     with open(file, 'r', encoding='utf-8') as f:
@@ -200,13 +200,14 @@ def addStr(file):
         print(str)
         # str1 = re.sub('Get_Last_2_Month_id()', 'Get_Last_Day_30', str)
         with open(file,'a+', encoding='utf-8') as f:
-            str1 = '\nretries=1\nretry.backoff=1800000'
+            # str1 = '\nretries=1\nretry.backoff=1800000'
+            str1='\ndependencies=yl_mintor'
             f.write(str1)
 
 
 print(files)
 for f in files:
-    replaceStr("C:\\Users\\CBH\Desktop\\azkaban\\正式环境job\\newjob\\"+f)
+    addStr("C:\\Users\\CBH\Desktop\\azkaban\\正式环境job\\adddesc\\"+f)
 
 
 

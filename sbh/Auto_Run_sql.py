@@ -16,8 +16,33 @@ from sbh.gshj.util.account import PgSQLContextManager
 from sbh.gshj.util.LogUitl import *
 
 
-list_function = ['D00093', 'D00094', 'D00095', 'D00096', 'D00141', 'D00142', 'D00143', 'D00144']
-list_time = ['20200101', '20200131', '20200201', '20200229', '20200301', '20200331', '20200401', '20200430',
+list_function = ['D00025',
+'D00029',
+'D00030',
+'D00031',
+'D00032',
+'D00033',
+'D00034',
+'D00036',
+'D00039',
+'D00088',
+'D00089',
+'D00090',
+'D00091',
+'D00093',
+'D00094',
+'D00095',
+'D00096',
+'D00141',
+'D00142',
+'D00143',
+'D00144',
+'D05011',
+'D05015',
+'D05016',
+'D05017',
+]
+list_time = ['20200101', '20200131', '20200201', '20200229', '20200301', '20200331', '{f_time}', '20200430',
              '20200501', '20200531', '20200601', '20200630']
 
 def Run_Sql_Date(list_time,list_function):
@@ -40,6 +65,21 @@ def Run_Sql_Date(list_time,list_function):
         except:
             log.info("循环结束")
             print("循环结束")
+from sbh.gshj.util.Dict_date import *
+list_time=Get_Time_All(list_time=[])
+Run_Sql_Date(list_time,list_function)
+
+for t_time in range(len(list_time)):
+    print(t_time)
+for func in list_function:
+    for time_list in list_time:
+        with PgSQLContextManager() as db_cursor:
+            sql = ''' select his_bi."fun_dwd_''' + str(func) + '_d"' + '''('{day_id}','{day_id}') '''\
+                .format(day_id=time_list)
+            print(sql)
+            db_cursor.execute(sql)
+
+
 
 
 def Run_Sql_Month(list_time,list_function):
@@ -62,21 +102,68 @@ def Run_Sql_Month(list_time,list_function):
         except:
             log.info("循环结束")
             print("循环结束")
+# .strftime('%Y:%m:%d %H:%M:%S')
 log = Logger('auto.log', logging.ERROR, logging.DEBUG)
 from sbh.gshj.util.Dict_date import *
 from sbh.gshj.util.account import PgSQLContextManager
 from sbh.gshj.util.LogUitl import *
-list_time=Get_Month_All(month_time=[])
+import datetime as dt
+list_time=Get_Time_All(list_time=[])
+list_time = Get_Month_All(month_time=[])
 log = Logger('auto.log', logging.ERROR, logging.DEBUG)
 for t_time in list_time:
+    print(list_time.index(t_time))
     with PgSQLContextManager() as db_cursor:
+        start_time = dt.datetime.now()
         sql = ''' 
-         select his_bi."fun_level_master_m"('{day_id}','{day_id}');
-         '''.format(day_id = t_time)
+         select his_bi."{function_nam}"('{day_id}','{day_id}');
+         '''.format(day_id = t_time,function_nam = list_function[t_time])
         log.info("执行sql日期为：{}".format(t_time))
         log.info(sql)
         db_cursor.execute(sql)
+        end_date = dt.datetime.now()
+        log.info(f'执行完成时间为：{(end_date-start_time).seconds}s')
 
+
+list_func_time= ['202001','202002','202003','202004','202005','202006','202007']
+list_func_time=['20200401','20200402']
+log = Logger('auto.log', logging.ERROR, logging.DEBUG)
+for f_time in list_func_time:
+    print(f_time)
+    with PgSQLContextManager() as db_cursor:
+        start_time = dt.datetime.now()
+        sql = '''select his_bi."fun_dwd_D00200_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00201_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00202_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00203_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00204_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00205_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00206_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00207_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00208_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00209_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00210_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00215_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00216_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00217_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00218_d"('{f_time}', '{f_time}');
+select his_bi."fun_dwd_D00219_d"('{f_time}', '{f_time}');
+        '''.format(f_time=f_time)
+        db_cursor.execute(sql)
+        end_date = dt.datetime.now()
+        log.info(f'执行完成时间为：{(end_date-start_time).seconds}s')
+
+
+for i in range(0,20):
+    # print('D00'+str(i+200))
+    print('select his_bi."fun_dwd_'+'D00'+str(i+200)+'_d'+'''"('{f_time}', '{f_time}');''')
+
+
+
+import time
+tupTime = time.localtime( 1597005380)#秒时间戳
+stadardTime = time.strftime("%Y-%m-%d %H:%M:%S", tupTime)
+print(stadardTime)
 
 '''
 代替switch的方式推荐两种
@@ -134,10 +221,14 @@ for gg in i :
         continue
     print(aijs['2'](gg[0:3]))
 
-if i[0:3] == values_parm.get(1):
-    list_new.append(values_result.get(1) + i)
-    non_new.append(i)
-    id_list.append(values_result.get(1))
-elif i[0:3] == values_parm.get(2):
-    list_new.append(values_result.get(2) + i)
-    non_new.append(i)
+list = [1,2]
+import pandas as pd
+df = pd.DataFrame(list)
+df = pd.DataFrame()
+try:
+    if df.empty == True:
+        print('successd!')
+    else:
+        1/0
+except:
+    raise ValueError('为处理ODS任务失败，而抛出异常！')

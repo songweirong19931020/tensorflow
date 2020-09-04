@@ -13,7 +13,7 @@ class Logger:
     def __init__(self, path, clevel=logging.DEBUG, Flevel=logging.DEBUG):
         self.logger = logging.getLogger(path)
         self.logger.setLevel(logging.DEBUG)
-        fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')
+        fmt = logging.Formatter('[%(asctime)s] - [%(name)s] -  w_level:[%(levelname)s] - job_name:[%(module)s] - detail: %(message)s', '%Y-%m-%d %H:%M:%S')
         ch = logging.StreamHandler()
         # 设置CMD日志
         sh = logging.StreamHandler()
@@ -30,18 +30,43 @@ class Logger:
         self.logger.addHandler(fh)
 
     def debug(self, message):
+        '''
+
+        :param message:
+        :return: 测试
+        '''
         self.logger.debug(message)
 
     def info(self, message):
+        '''
+        输入信息
+        :param message:
+        :return:
+        '''
         self.logger.info(message)
 
     def war(self, message):
+        '''
+        告警
+        :param message:
+        :return:
+        '''
         self.logger.warn(message)
 
     def error(self, message):
+        '''
+        错误
+        :param message:
+        :return:
+        '''
         self.logger.error(message)
 
     def cri(self, message):
+        '''
+        批判性
+        :param message:
+        :return:
+        '''
         self.logger.critical(message)
 
 

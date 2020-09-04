@@ -4446,3 +4446,29 @@ while i <=231:
 
 del df['name']
 df.to_csv('result202007127.txt',encoding='utf-8',index=False)
+
+
+
+
+
+
+
+import re
+txt = '''---LV007010201年门诊人次
+delete from his_bi.level_master_m where month_id = c_monthlist.month_id and level_code = 'LV007010201';
+insert into his_bi.level_master_m
+select
+t1.month_id,
+'LV007010201' as level_code ,
+count(1) as level_value,
+now() as update_time ,
+count(1) as self_value  ,
+null as check_flag  ,
+null as check_comm
+from his_bi.dw_outp_patient_info_m t1
+where
+t1.month_id=c_monthlist.month_id and
+coalesce(t1.is_tj,0)=0
+group by month_id;'''
+
+ret = re.sub('\s.*\s+level_value','a',txt)

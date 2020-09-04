@@ -46,8 +46,11 @@ class AzkabanConnector:
     def Loginweb(self, url, driver_path):
         driver = webdriver.Chrome(driver_path)
         driver.get(url)
+        time.sleep(2)
         driver.find_element_by_id('username').send_keys('admin')
-        driver.find_element_by_id('password').send_keys('gsfy211')
+        time.sleep(2)
+        driver.find_element_by_id('password').send_keys('gsfy211!')
+        time.sleep(2)
         driver.find_element_by_id('login-submit').click()
         return driver
 

@@ -30,3 +30,15 @@ with account.PgSQLContextManager() as db_cursor:
 
 
 
+from sbh.gshj.util.Dict_date import *
+from sbh.gshj.util.account import PgSQLContextManager
+from sbh.gshj.util.LogUitl import *
+import datetime as dt
+list_time=Get_Time_All(list_time=[])
+
+for i in range(0,round(len(list_time)/2)+1):
+    print(list_time[i])
+
+for i in range(round(len(list_time)/2)+1,len(list_time)):
+    print(list_time[i])
+

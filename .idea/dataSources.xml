@@ -8,5 +8,13 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://192.168.20.234:5432/</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="192.168.4.205" uuid="dcc588fd-7c9b-4eeb-9784-64a354927740">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>甘肃正式环境205</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://192.168.4.205:5432/postgres</jdbc-url>
+      <vm-options>-Duser.timezone=Asia/Shanghai</vm-options>
+    </data-source>
   </component>
 </project>
